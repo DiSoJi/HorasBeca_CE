@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorasBeca.Solicitudes.api", "HorasBeca.Solicitudes.api\HorasBeca.Solicitudes.api.csproj", "{328F1B8B-0DC0-4B43-BB79-2E35B3B196D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorasBeca.Solicitudes.api.Tests", "HorasBeca.Solicitudes.api.Tests\HorasBeca.Solicitudes.api.Tests.csproj", "{F009BEBE-ADBA-4898-B121-16849261EC19}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{328F1B8B-0DC0-4B43-BB79-2E35B3B196D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{328F1B8B-0DC0-4B43-BB79-2E35B3B196D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{328F1B8B-0DC0-4B43-BB79-2E35B3B196D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{328F1B8B-0DC0-4B43-BB79-2E35B3B196D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F009BEBE-ADBA-4898-B121-16849261EC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F009BEBE-ADBA-4898-B121-16849261EC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F009BEBE-ADBA-4898-B121-16849261EC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F009BEBE-ADBA-4898-B121-16849261EC19}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BCCE028F-5DD5-47C4-BEBD-737001C13450}
+	EndGlobalSection
+EndGlobal
