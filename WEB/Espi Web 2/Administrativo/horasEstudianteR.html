@@ -1,0 +1,40 @@
+  <style>
+        th {
+          
+            text-align: center;
+            color: #ffffff;
+            background: #22629f;
+            
+        }
+
+         td {
+            background: #A9C6EE;
+            text-align: center;
+          }
+
+          table tr:not(:first-child){
+                cursor: pointer;transition: all .25s ease-in-out;
+            }
+        table tr:not(:first-child):hover{opacity: 0.8;}
+        
+        
+    </style>
+
+  <div class="container">
+    <h2>Horas Estudiante</h2>
+    <br>
+    <div class="row">
+      <table id="table" class="table">
+            <tr>
+                <th ng-repeat="(header, value) in hEst[0]">{{header}}</th>
+                <th></th>
+            </tr>
+            
+            <tr ng-repeat="row in hEst | filter:searchText">
+                <td ng-repeat="cell in row">{{cell}}</td>
+                <td><a href="#!req">Ver</a></td>
+            </tr>
+        </table>
+      
+    </div>
+  </div>

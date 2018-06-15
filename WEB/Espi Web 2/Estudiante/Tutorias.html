@@ -1,0 +1,125 @@
+    <div class="container" ng-controller="StudentCtrl">
+      <h2>Horas Tutor</h2>
+      <div class="row">
+        <div class="col-sm-6">
+           <form class="form-horizontal" action="/action_page.php">
+              <h1>Datos Generales</h1>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Nombre:</label>
+                <input type="text" class="form-control" id="email" name="email">
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Primer Apellido:</label>
+                  <input type="text" class="form-control" id="email" name="email">
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Segundo Apellido:</label>
+                  <input type="text" class="form-control" id="email" name="email">
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Carné:</label>
+                  <input type="number" class="form-control" id="email" name="email">
+                  <input type="file" name="file" id="file" class="inputfile" />
+                  <label for="file">Adjuntar Imagen</label>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Cédula:</label>
+                  <input type="number" class="form-control" id="email" name="email">
+                  <input type="file" name="file" id="file" class="inputfile" />
+                  <label for="file">Adjuntar Imagen</label>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Correo Electrónico:</label>
+                <input type="email" class="form-control" id="email" placeholder="ejemplo@gmail.com">
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Promedio Ponderado del Semestre Anterior:</label>
+                <input type="number" class="form-control" id="email">
+                <input type="file" name="file" id="file" class="inputfile" />
+                <label for="file">Adjuntar Imagen</label>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Promedio Ponderado General:</label>
+                <input type="number" class="form-control" id="email">
+                <input type="file" name="file" id="file" class="inputfile" />
+                <label for="file">Adjuntar Imagen</label>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Créditos Aprobados el Semestre Anterior:</label>
+                <input type="number" class="form-control" id="email">
+                <input type="file" name="file" id="file" class="inputfile" />
+                <label for="file">Adjuntar Imagen</label>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Años Como Estudiante Activo en el TEC:</label>
+                <input type="number" class="form-control" id="email">
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">Créditos Aprobados en el TEC:</label>
+                <input type="number" class="form-control" id="email">
+                <input type="file" name="file" id="file" class="inputfile" />
+                <label for="file">Adjuntar Imagen</label>
+              </div>
+            </form>
+        </div>
+        <div class="col-sm-6">
+          <form class="form-horizontal" action="/action_page.php">
+            <h1>Información del Curso a Tutorear</h1>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="email">Código:</label>
+              <input type="text" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="email">Nombre del Curso:</label>
+              <input type="text" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="email">Nota Obtenida en el Curso:</label>
+              <input type="number" class="form-control" id="email">
+              <input type="file" name="file" id="file" class="inputfile" />
+              <label for="file">Adjuntar Imagen</label>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="email">Nombre del Profesor:</label>
+              <input type="text" class="form-control" id="email" name="email">
+            </div>
+          </form>
+          <form class="form-horizontal" action="/action_page.php">
+            <h1>Información Bancaria</h1>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="email">Banco Nacional:</label>
+              <input type="number" class="form-control" id="email" placeholder="20001">
+              <input type="file" name="file" id="file" class="inputfile" />
+              <label for="file">Adjuntar Imagen</label>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="email">Banco Popular:</label>
+              <input type="number" class="form-control" id="email" placeholder="161">
+              <input type="file" name="file" id="file" class="inputfile" />
+              <label for="file">Adjuntar Imagen</label>
+            </div>
+          </form>
+          <form class="form-horizontal" action="/action_page.php">
+            <h1>Nombramiento en otras instancias</h1>
+            <label class="info">Si ha realizado solicitud de una beca en otra escuela, especifique:</label>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="email">Nombre de la Escuela, Área Académica o Departamento:</label>
+              <input type="text" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="email">Cantidad de Horas:</label>
+              <input type="number" class="form-control" id="email">
+            </div>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-6">
+          <button type="button" class="btn" ng-click="enviar()">Enviar</button>
+        </div>
+        <div class="col-sm-6">
+          <button type="button" class="btn" ng-click="guardar()">Guardar</button>
+        </div>
+      </div>
+  </div>
