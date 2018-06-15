@@ -1,15 +1,19 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Cors;
 using Newtonsoft.Json.Linq;
-using HorasBeca.Solicitudes.api.Models;
+
+
 namespace HorasBeca.Solicitudes.api.Controllers
 {
     /**
     * Solicitud Controller
     * */
+    using HorasBeca.Solicitudes.api.Models;
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class SolicitudesController : ApiController
     {
+      
+       Solicitudes solicitud = new Solicitudes();
         public JObject Get()
         {
             JObject response =
@@ -25,6 +29,7 @@ namespace HorasBeca.Solicitudes.api.Controllers
             JObject resultado = new JObject();
             switch (codigo){
                 case "S01"://Codigo S01 -> Envio de solicitud
+                    solicitud.SolicitudWrapper(x);
                     break;
                 case "S02"://Codigo S02 -> Solicitud de solicitudes
                     break;

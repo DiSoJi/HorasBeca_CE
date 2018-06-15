@@ -20,13 +20,20 @@ namespace HorasBeca.Solicitudes.api.Models
         public JObject InsertarSolicitud(JObject data)
         {
             string tipoSolicitud = (string)data.GetValue("tipoSolicitud");
+            data["imgPpg"] = Convert.FromBase64String((string)data.GetValue("imgPpg").ToString());
+            data["imgPps"] = Convert.FromBase64String((string)data.GetValue("imgPps").ToString());
+            data["imgCg"] = Convert.FromBase64String((string)data.GetValue("imgCg").ToString());
+            data["imgCs"] = Convert.FromBase64String((string)data.GetValue("imgCs").ToString());
+            data["imgCBanco"] = Convert.FromBase64String((string)data.GetValue("imgCBanco").ToString());
+            data["imgNotaCurso"] = Convert.FromBase64String((string)data.GetValue("imgNotaCurso").ToString());
             data.Remove("tipoSolicitud");
             DataTable table = SolicitudWrapper(data);
             JObject respuesta = new JObject();
             SqlConnection dbConexion = new SqlConnection(connectionString);
             dbConexion.Open();
-            SqlCommand Comando = new SqlCommand("UpdateCLIENTE_Activo", dbConexion);//LLama un Stored Procedur
-            Comando.Parameters.Add("@Cedula", SqlDbType.Int).Value = user;
+            SqlCommand Comando = new SqlCommand("Solicitud_Test", dbConexion);//LLama un Stored Procedur
+
+            Comando.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = table;
             Comando.CommandType = CommandType.StoredProcedure;
             return respuesta;
         }
@@ -55,11 +62,16 @@ namespace HorasBeca.Solicitudes.api.Models
             SolicitudWrapper.Columns.Add("notaCurso", typeof(int));
             SolicitudWrapper.Columns.Add("imgNotaCurso", typeof(string));
             SolicitudWrapper.Columns.Add("fecha", typeof(DateTime));
+            SolicitudWrapper.Columns.Add("telefono", typeof(int));
+            SolicitudWrapper.Columns.Add("anosTEC", typeof(float));
             //Agregar informacion
             SolicitudWrapper.Rows.Add((int)temp.cedula, (float)temp.proPonGeneral, (float)temp.proPonSemestral,
-                (int)temp.creditosGeneral, (int)temp.creditosSemestre, () DateTime.Now);
+                (int)temp.creditosGeneral, (int)temp.creditosSemestre, (int)temp.cuentaBanco, (string)temp.banco, 
+                (string)temp.carne, (int)temp.horas, (string)temp.imgPpg, (string)temp.imgPps, (string)temp.imgCg,
+                (string)temp.imgCs, (string)temp.imgCBanco, (int)temp.idCurso, (int)temp.idProfesor, (int)temp.notaCurso,
+                (string)temp.imgNotaCurso, (DateTime)temp.fecha, (int)temp.telefono, (float)temp.anosTEC);
 
-            return table;
+            return SolicitudWrapper;
 
         }
 
