@@ -26,6 +26,7 @@ CREATE TYPE [dbo].[SolicitudWrapper] AS TABLE (
 			imgNotaCurso varbinary(max) null,
 			fecha datetime null,
 			telefono int null,
-			anosTEC float null
+			anosTEC float null,
+			estado int null
 )
 GO
