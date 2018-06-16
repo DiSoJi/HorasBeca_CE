@@ -7,7 +7,7 @@ INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('5', 'Aprobado p
 INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('6', 'Rechazado por Comisión', '1');
 INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('7', 'Activo en elSemestre', '1');
 INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('8', 'Finalizado en el Semestre', '1');
-INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('9', 'Corregido por el Usiario', '1');
+INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('9', 'Corregido por el Usuario', '1');
 
 
 INSERT INTO curso(codigo_curso,nombre_curso,activo) VALUES('CE4101','Especificacón y Deseño de Software','1');

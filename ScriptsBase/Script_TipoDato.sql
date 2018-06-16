@@ -20,6 +20,8 @@ CREATE TYPE [dbo].[SolicitudWrapper] AS TABLE (
 			imgCg varbinary(max) null,
 			imgCs varbinary(max) null,
 			imgCBanco varbinary(max) null,
+			imgCed varbinary(max) null,
+			imgCar varbinary(max) null,
 			idCurso int null,
 			idProfesor int null,
 			notaCurso float null,
@@ -28,5 +30,13 @@ CREATE TYPE [dbo].[SolicitudWrapper] AS TABLE (
 			telefono int null,
 			anosTEC float null,
 			estado int null
+)
+GO
+
+CREATE TYPE [dbo].[OtrasAsistenciasWrapper] AS TABLE (
+			contador int null,
+			id_estudiante varchar(11) null,
+			horas int null,
+			descripcion varchar(max)
 )
 GO

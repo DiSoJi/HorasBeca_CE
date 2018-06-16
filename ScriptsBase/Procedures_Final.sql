@@ -173,3 +173,41 @@ END CATCH;
 
 END
 GO
+
+
+CREATE PROCEDURE Insert_Otras_Asistencias_UDP
+	-- Add the parameters for the stored procedure here
+	@AsistenciasWrapper OtrasAsistenciasWrapper READONLY
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+declare @idColumn int
+
+select @idColumn = min(contador) from @AsistenciasWrapper
+
+while @idColumn is not null
+begin
+	INSERT INTO otras_asistencias(id_estudiante,horas, descripcion,activo)
+	SELECT id_estudiante, horas, descripcion, 1
+	FROM @AsistenciasWrapper
+	WHERE contador = @idColumn
+
+    SELECT @idColumn = min( contador ) from @AsistenciasWrapper where contador > @idColumn
+end
+
+
+COMMIT TRANSACTION;
+END TRY
+
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+END
+GO
+

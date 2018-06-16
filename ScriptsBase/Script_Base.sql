@@ -67,7 +67,7 @@ INSERT estudiantes (carne, primer_nombre, segundo_nombre, primer_apellido, segun
 /*---------------------------------------------------------------------------------------*/
 
 CREATE TABLE curso (
-    codigo_curso varchar(max) NOT NULL,
+    codigo_curso varchar(10) NOT NULL,
     nombre_curso varchar(max) NOT NULL,
 	activo bit not null
 );
@@ -87,6 +87,9 @@ CREATE TABLE solicitud_general (
 	creds_gen_img varbinary(max) not null,
 	creds_sem_img varbinary(max) not null,
 	cuenta_banco_img varbinary(max) not null,
+	cedula_img varbinary(max) not null,
+	carne_img varbinary(max) not null,
+	imgCar varbinary(max) not null,
 	anios_TEC int not null,
 	estado int not null, 
 	activo bit not null
@@ -105,7 +108,7 @@ CREATE TABLE solicitud_asistente (
 	id_sol int IDENTITY(1,1) PRIMARY KEY,
 	id_estudiante varchar(11) not null,
 	id_sol_general int not null,
-	id_curso varchar(20) not null,
+	id_curso varchar(10) not null,
 	horas int,
 	id_prof_asistir int not null,
 	nota_curso_asist int not null,
@@ -117,7 +120,7 @@ CREATE TABLE solicitud_tutoria (
 	id_sol int IDENTITY(1,1) PRIMARY KEY,
 	id_estudiante varchar(11) not null,
 	id_sol_general int not null,
-	id_curso varchar(20) not null,
+	id_curso varchar(10) not null,
 	horas int,
 	nota_curso_tut int not null,
 	id_prof_asistir int, /*Lo incluye area academica*/
