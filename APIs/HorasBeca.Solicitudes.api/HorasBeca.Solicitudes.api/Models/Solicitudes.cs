@@ -64,14 +64,14 @@ namespace HorasBeca.Solicitudes.api.Models
                     SqlCommand Comando2 = new SqlCommand("Insert_Sol_Horas_Especial_UDP", dbConexion);//LLama un Stored Procedur
                     Comando2.CommandType = CommandType.StoredProcedure;
                     Comando2.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
-                    Comando.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
+                    Comando2.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
                     rowasAffected = Comando2.ExecuteNonQuery();
                     break;
                 case ("HT"):
                     SqlCommand Comando3 = new SqlCommand("Insert_Sol_Horas_Tutor_UDP", dbConexion);//LLama un Stored Procedur
                     Comando3.CommandType = CommandType.StoredProcedure;
                     Comando3.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
-                    Comando.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
+                    Comando3.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
                     rowasAffected = Comando3.ExecuteNonQuery();
                     break;
             }
