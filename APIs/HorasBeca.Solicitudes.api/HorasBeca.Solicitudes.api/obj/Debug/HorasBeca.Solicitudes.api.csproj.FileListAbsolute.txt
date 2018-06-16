@@ -209,3 +209,7 @@ D:\Escritorio\Proyecto Final\HorasBeca_CE\APIs\HorasBeca.Solicitudes.api\HorasBe
 D:\Escritorio\Proyecto Final\HorasBeca_CE\APIs\HorasBeca.Solicitudes.api\HorasBeca.Solicitudes.api\obj\Debug\HorasBeca.Solicitudes.api.csproj.CoreCompileInputs.cache
 D:\Escritorio\Proyecto Final\HorasBeca_CE\APIs\HorasBeca.Solicitudes.api\HorasBeca.Solicitudes.api\obj\Debug\HorasBeca.Solicitudes.api.dll
 D:\Escritorio\Proyecto Final\HorasBeca_CE\APIs\HorasBeca.Solicitudes.api\HorasBeca.Solicitudes.api\obj\Debug\HorasBeca.Solicitudes.api.pdb
+D:\Escritorio\Proyecto Final\HorasBeca_CE\APIs\HorasBeca.Solicitudes.api\HorasBeca.Solicitudes.api\bin\HorasBeca.Solicitudes.api.dll.config
+D:\Escritorio\Proyecto Final\HorasBeca_CE\APIs\HorasBeca.Solicitudes.api\HorasBeca.Solicitudes.api\bin\HorasBeca.Solicitudes.api.dll
+D:\Escritorio\Proyecto Final\HorasBeca_CE\APIs\HorasBeca.Solicitudes.api\HorasBeca.Solicitudes.api\bin\HorasBeca.Solicitudes.api.pdb
+D:\Escritorio\Proyecto Final\HorasBeca_CE\APIs\HorasBeca.Solicitudes.api\HorasBeca.Solicitudes.api\obj\Debug\HorasBeca.Solicitudes.api.csprojResolveAssemblyReference.cache
