@@ -14,7 +14,11 @@ CREATE PROCEDURE Insert_Sol_Horas_Estudiante_UDP
 	
 AS
 BEGIN
-	DECLARE @sol_gen_ID int
+
+BEGIN TRANSACTION;
+
+BEGIN TRY
+    DECLARE @sol_gen_ID int
 	SET NOCOUNT ON;
 
 	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img, estado,anios_TEC, activo)
@@ -26,6 +30,12 @@ BEGIN
 	INSERT INTO solicitud_estudiante( id_estudiante, id_sol_general, horas, activo )
 	SELECT carne, @sol_gen_ID, horas, 1
 	FROM @solicitudWrapper
+    COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION;
+END CATCH;
+
 
 
 END
@@ -47,7 +57,10 @@ CREATE PROCEDURE Insert_Sol_Horas_Asistente_UDP
 	
 AS
 BEGIN
-	DECLARE @sol_gen_ID int
+BEGIN TRANSACTION;
+
+BEGIN TRY
+   	DECLARE @sol_gen_ID int
 	SET NOCOUNT ON;
 
 	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img, estado,anios_TEC, activo)
@@ -59,6 +72,14 @@ BEGIN
 	INSERT INTO solicitud_asistente( id_estudiante, id_sol_general,id_curso, horas, id_prof_asistir, nota_curso_asist,nota_curso_asist_img, activo )
 	SELECT carne, @sol_gen_ID, idCurso,  horas, idProfesor,notaCurso,imgNotaCurso, 1
 	FROM @solicitudWrapper
+   
+    COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
 
 
 END
@@ -80,7 +101,11 @@ CREATE PROCEDURE Insert_Sol_Horas_Tutor_UDP
 	
 AS
 BEGIN
-	DECLARE @sol_gen_ID int
+
+	BEGIN TRANSACTION;
+
+BEGIN TRY
+   	DECLARE @sol_gen_ID int
 	SET NOCOUNT ON;
 
 	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img, estado,anios_TEC, activo)
@@ -92,6 +117,14 @@ BEGIN
 	INSERT INTO solicitud_tutoria( id_estudiante, id_sol_general,id_curso, horas, nota_curso_tut, id_prof_asistir,nota_curso_tut_img, activo )
 	SELECT carne, @sol_gen_ID, idCurso,  horas,notaCurso, idProfesor,imgNotaCurso, 1
 	FROM @solicitudWrapper
+
+    COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
 
 
 END
@@ -113,7 +146,10 @@ CREATE PROCEDURE Insert_Sol_Horas_Especial_UDP
 	
 AS
 BEGIN
-	DECLARE @sol_gen_ID int
+BEGIN TRANSACTION;
+
+BEGIN TRY
+    DECLARE @sol_gen_ID int
 	SET NOCOUNT ON;
 
 	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img, estado,anios_TEC, activo)
@@ -125,6 +161,14 @@ BEGIN
 	INSERT INTO solicitud_especial( id_estudiante, id_sol_general, horas_solicitadas,horas_asignadas, activo )
 	SELECT carne, @sol_gen_ID, horas,0 , 1
 	FROM @solicitudWrapper
+
+    COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
 
 
 END
