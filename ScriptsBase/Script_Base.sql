@@ -67,8 +67,8 @@ INSERT estudiantes (carne, primer_nombre, segundo_nombre, primer_apellido, segun
 /*---------------------------------------------------------------------------------------*/
 
 CREATE TABLE curso (
-    codigo_curso varchar(20) NOT NULL,
-    nombre_curso varchar(20) NOT NULL,
+    codigo_curso varchar(max) NOT NULL,
+    nombre_curso varchar(max) NOT NULL,
 	activo bit not null
 );
 
