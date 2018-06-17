@@ -24,8 +24,8 @@ BEGIN TRY
 	SET NOCOUNT ON;
 	SELECT @ID_estudiante = carne FROM @solicitudWrapper
 
-	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img, estado,anios_TEC, activo)
-	SELECT cedula, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco,anosTEC, estado, 1
+	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img, estado,carne_img,anios_TEC, activo)
+	SELECT cedula, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, estado ,imgCar,anosTEC, 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()

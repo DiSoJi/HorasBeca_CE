@@ -93,7 +93,6 @@ CREATE TABLE solicitud_general (
 	cuenta_banco_img varbinary(max) not null,
 	cedula_img varbinary(max) not null,
 	carne_img varbinary(max) not null,
-	imgCar varbinary(max) not null,
 	anios_TEC int not null,
 	estado int not null, 
 	activo bit not null
