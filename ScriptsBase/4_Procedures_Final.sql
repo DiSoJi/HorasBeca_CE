@@ -433,6 +433,7 @@ BEGIN TRY
 SELECT id_sol_gen,cedula_est,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,horas_solicitadas,horas_asignadas
 FROM (solicitud_general FULL OUTER JOIN solicitud_especial ON solicitud_general.id_sol_gen = solicitud_especial.id_sol_general)
 WHERE solicitud_general.activo = '1' AND solicitud_especial.activo = '1' AND solicitud_especial.id_estudiante = @carne
+FOR JSON PATH; 
 
 COMMIT TRANSACTION;
 END TRY
