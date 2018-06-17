@@ -25,6 +25,19 @@ form {
     border: 3px solid #f1f1f1;
 }
 
+.custom-select {
+          position: relative;
+          font-family: Arial;
+          margin: auto;
+          display: block;
+          cursor: pointer;
+          width: 30%;
+        }
+
+.custom-select2 {
+          width: 100%;
+        }
+
 .img-circle{border-radius:50%}hr{margin-top:20px;margin-bottom:20px;border:0;border-top:1px solid #eee}
 
 .footer {
@@ -38,12 +51,58 @@ form {
     padding-left: 3%;
 }
 
+.dataContainer {
+    width: 70%;
+
+}
+
 .navbar {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7),to(#eee));
   background-image: -webkit-linear-gradient(top, #f7f7f7 0%,#eee 100%);
   background-image: -o-linear-gradient(top, #f7f7f7 0%,#eee 100%);
   background-image: linear-gradient(to bottom, #f7f7f7 0%,#eee 100%);
   border: 1px solid #e5e5e5;
+}
+
+.fileContainer {
+    overflow: hidden;
+    position: absolute;
+
+}
+
+.fileContainer [type=file] {
+    cursor: inherit;
+    display: block;
+    font-size: 999px;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+
+}
+
+/* Example stylistic flourishes */
+
+.fileContainer {
+    background: #818b9b;
+    border-radius: .5em;
+    float: left;
+    padding: .5em;
+    color: white;
+
+}
+
+.fileContainer [type=file] {
+    cursor: pointer;
+
+}
+
+.fileContainer:hover {
+    opacity: 0.8;
 }
 
 .inputfile {
@@ -90,9 +149,10 @@ input[type=email] {
 }
 
 input[type=number] {
-    width: 42%;
+    width: 62%;
     /*padding: 6px 20px;*/
     margin: auto;
+    *display: inline;  
     display: inline;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -118,6 +178,11 @@ button {
 /* Add a hover effect for buttons */
 button:hover {
     opacity: 0.8;
+}
+
+.btn3 {
+    width: 25%;
+    margin: 0% 1%;
 }
 
 .ancho{
