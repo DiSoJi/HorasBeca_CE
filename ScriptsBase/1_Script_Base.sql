@@ -151,6 +151,7 @@ CREATE TABLE estados_solicitud (
 CREATE TABLE otras_asistencias (
 	id_otras_asistencia int IDENTITY(1,1) PRIMARY KEY,
 	id_estudiante varchar(11),
+	id_sol_gen int,
 	horas int,
 	descripcion varchar(max),
 	activo bit not null
