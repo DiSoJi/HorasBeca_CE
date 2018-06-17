@@ -37,16 +37,14 @@ namespace HorasBeca.Solicitudes.api.Controllers
                 case ("S03")://Codigo S03 -> Solicitud de solicitudes por carne
                     resultado = solicitud.ObtenerTodasSolicitudesPorCarne(x);
                     break;
+                case ("S04")://Actualizar estado 
+                    //resultado = solicitud.
+                    break;
                 default:
                     break;
-
-
             }
             return resultado;
-
+      
         }
-
-
-
     }
 }

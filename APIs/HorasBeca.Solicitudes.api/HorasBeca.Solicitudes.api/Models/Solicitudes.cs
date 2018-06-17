@@ -144,6 +144,7 @@ namespace HorasBeca.Solicitudes.api.Models
             //Se crea la tabla con las columnas
             DataTable table = new DataTable();
             table.Columns.Add("cedula", typeof(int));
+            table.Columns.Add("carrera", typeof(string));
             table.Columns.Add("proPonGeneral", typeof(float));
             table.Columns.Add("proPonSemestral", typeof(float));
             table.Columns.Add("creditosGeneral", typeof(int));
@@ -169,7 +170,7 @@ namespace HorasBeca.Solicitudes.api.Models
             table.Columns.Add("estado", typeof(int));
             
             //Agregar informacion
-            table.Rows.Add((int)temp.cedula, (float)temp.proPonGeneral, (float)temp.proPonSemestral,
+            table.Rows.Add((int)temp.cedula, (string)temp.carrera, (float)temp.proPonGeneral, (float)temp.proPonSemestral,
                 (int)temp.creditosGeneral, (int)temp.creditosSemestre, (int)temp.cuentaBanco, (string)temp.banco, 
                 (string)temp.carne, (int)temp.horas, (byte[])temp.imgPpg, (byte[])temp.imgPps, (byte[])temp.imgCg,
                 (byte[])temp.imgCs, (byte[])temp.imgCBanco, (byte[])temp.imgCed, (byte[])temp.imgCar, (int)temp.idCurso,
@@ -241,22 +242,75 @@ namespace HorasBeca.Solicitudes.api.Models
         public JObject ObtenerTodasSolicitudesPorCarne(JObject data)
         {
             JObject respuesta = new JObject();
+            string tipoSolicitud = (string)data.GetValue("tipoSolicitud");
             string estado = (string)data.GetValue("estado");
             SqlConnection dbConexion = new SqlConnection(connectionString);
             dbConexion.Open();
-            switch (estado)
+            switch (tipoSolicitud)
             {
-                case ("borrador"):
-                    SqlCommand Comando = new SqlCommand("Select_SolicitudesEspecialxCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
-                    Comando.CommandType = CommandType.StoredProcedure;
-                    Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
-                    rowsAffected = Comando.ExecuteNonQuery();
+                case ("HT"):
+                    if (estado == "Hisorial")
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesTuroriaxCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesTuroriaxCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
                     break;
-                case ("historial"):
-                    SqlCommand Comando1 = new SqlCommand("Select_SolicitudesEspecialxCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
-                    Comando1.CommandType = CommandType.StoredProcedure;
-                    Comando1.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
-                    rowsAffected = Comando1.ExecuteNonQuery();
+                case ("HE"):
+                    if (estado == "Hisorial")
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEstudiantexCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEstudiantexCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
+                    break;
+                case ("AE"):
+                    if (estado == "Hisorial")
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEspecialxCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEspecialxCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
+                    break;
+                case ("HA"):
+                    if (estado == "Hisorial")
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesAsistentexCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesAsistentexCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
                     break;
             }
             //Se comprueba si el select fue exitoso
