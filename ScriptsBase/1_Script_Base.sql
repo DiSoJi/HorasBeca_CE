@@ -79,12 +79,12 @@ CREATE TABLE curso (
 CREATE TABLE solicitud_general (
 	id_sol_gen int IDENTITY(1,1) PRIMARY KEY,
 	cedula_est int,
-	carrera varchar(max) not null,
+	id_carrera int not null,
 	prom_pond_gen float not null,
 	prom_pond_sem float not null,
 	creds_gen int not null,
 	creds_sem int not null,
-	cuenta_banco int not null, 
+	cuenta_banco int not null,
 	banco varchar(20) not null,
 	fecha_solicitud datetime not null,
 	prom_pond_gen_img varbinary(max) not null,
@@ -96,8 +96,9 @@ CREATE TABLE solicitud_general (
 	carne_img varbinary(max) not null,
 	anios_TEC int not null,
 	telefono int not null,
-	estado int not null, 
+	estado int not null,
 	horas_cumplidas float not null,
+	comentario varchar(max) null,
 	activo bit not null
 	
 );
@@ -175,6 +176,23 @@ CREATE TABLE config(
 	activo bit not null
 );
 
+CREATE TABLE carrera(
+	id_carrera int IDENTITY(1,1) PRIMARY KEY,
+	nombre varchar(max) not null,
+	activo bit not null
+);
+
+/*
+CREATE TABLE comentario_solicitud(
+	id_comentario int IDENTITY(1,1) PRIMARY KEY,
+	id_sol_gen varchar(11) not null,
+	comentario varchar(max) null,
+	activo bit not null
+
+);*/
+
+/*ALTER TABLE comentario_solicitud ADD CONSTRAINT ComentSol_x_SolGeneral FOREIGN KEY (id_sol_gen) REFERENCES solicitud_general(id_sol_gen);*/
+
 ALTER TABLE control_estudiante ADD CONSTRAINT ContEst_x_Estudiante FOREIGN KEY (id_estudiante ) REFERENCES estudiantes(carne);
 ALTER TABLE control_estudiante ADD CONSTRAINT ContEst_x_Usuario FOREIGN KEY (id_profesor ) REFERENCES usuario(id);
 
@@ -197,6 +215,6 @@ ALTER TABLE solicitud_asistente ADD CONSTRAINT SolAsis_x_Curso FOREIGN KEY (id_c
 ALTER TABLE solicitud_tutoria ADD CONSTRAINT SolTuto_x_Curso FOREIGN KEY (id_curso) REFERENCES curso(codigo_curso);
 
 ALTER TABLE solicitud_general ADD CONSTRAINT SolGen_x_Estado FOREIGN KEY (estado) REFERENCES estados_solicitud(id_estado); 
+ALTER TABLE solicitud_general ADD CONSTRAINT SolGen_x_Carrera FOREIGN KEY (id_carrera) REFERENCES carrera(id_carrera);
 
 ALTER TABLE otras_asistencias ADD CONSTRAINT OtrasAsistencias_x_Estudiante FOREIGN KEY (id_estudiante) REFERENCES estudiantes(carne);
-

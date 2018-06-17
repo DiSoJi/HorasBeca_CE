@@ -20,14 +20,14 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-	SET NOCOUNT ON;
+
     DECLARE @sol_gen_ID int
 	DECLARE @ID_estudiante varchar(11)
 	
 	SELECT @ID_estudiante = carne FROM @solicitudWrapper
 
-	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas, activo)
-	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0, 1
+	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas,comentario, activo)
+	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0,'', 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()
@@ -71,12 +71,11 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-	SET NOCOUNT ON;
     DECLARE @sol_gen_ID int
 
 
-	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas, activo)
-	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0, 1
+	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas,comentario, activo)
+	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0,'', 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()
@@ -117,10 +116,10 @@ BEGIN TRANSACTION;
 BEGIN TRY
    	DECLARE @sol_gen_ID int
 	DECLARE @ID_estudiante varchar(11)
-	SET NOCOUNT ON;
 
-	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas, activo)
-	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0, 1
+
+	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas,comentario, activo)
+	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0,'', 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()
@@ -165,10 +164,10 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
    	DECLARE @sol_gen_ID int
-	SET NOCOUNT ON;
 
-	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas, activo)
-	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0, 1
+
+	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas,comentario, activo)
+	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0,'', 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()
@@ -212,10 +211,10 @@ BEGIN
 BEGIN TRY
    	DECLARE @sol_gen_ID int
 	DECLARE @ID_estudiante varchar(11)
-	SET NOCOUNT ON;
 
-	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas, activo)
-	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0, 1
+
+	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas,comentario, activo)
+	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0,'', 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()
@@ -261,10 +260,10 @@ BEGIN
 
 BEGIN TRY
    	DECLARE @sol_gen_ID int
-	SET NOCOUNT ON;
 
-	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas, activo)
-	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0, 1
+
+	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas,comentario, activo)
+	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0,'', 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()
@@ -308,10 +307,10 @@ BEGIN TRANSACTION;
 BEGIN TRY
     DECLARE @sol_gen_ID int
 	DECLARE @ID_estudiante varchar(11)
-	SET NOCOUNT ON;
 
-	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas, activo)
-	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0, 1
+
+	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas,comentario, activo)
+	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0,'', 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()
@@ -358,10 +357,10 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
     DECLARE @sol_gen_ID int
-	SET NOCOUNT ON;
 
-	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas, activo)
-	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0, 1
+
+	INSERT INTO solicitud_general (	cedula_est,carrera, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado,horas_cumplidas,comentario, activo)
+	SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0,'', 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()
@@ -419,7 +418,7 @@ END CATCH;
 END
 GO
 */
-
+/*---------------------------------------------------------------------------------------------------------------------------------------*/
 CREATE PROCEDURE Select_SolicitudesEspecialxCarne_Borrador_UDP
 	-- Add the parameters for the stored procedure here
 	@carne varchar(11)
@@ -430,8 +429,8 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,carrera,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,horas_solicitadas,horas_asignadas,horas_cumplidas
-FROM (solicitud_general FULL OUTER JOIN solicitud_especial ON solicitud_general.id_sol_gen = solicitud_especial.id_sol_general)
+SELECT id_sol_gen,cedula_est,id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,horas_solicitadas,horas_asignadas,horas_cumplidas,comentario
+FROM ((solicitud_general FULL OUTER JOIN solicitud_especial ON solicitud_general.id_sol_gen = solicitud_especial.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrea.id_carrera)
 WHERE solicitud_general.activo = '1' AND solicitud_especial.activo = '1' AND solicitud_especial.id_estudiante = @carne AND solicitud_general.estado = '0'
 FOR JSON PATH; 
 
@@ -456,8 +455,8 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,carrera,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,horas_solicitadas,horas_asignadas,horas_cumplidas
-FROM (solicitud_general FULL OUTER JOIN solicitud_especial ON solicitud_general.id_sol_gen = solicitud_especial.id_sol_general)
+SELECT id_sol_gen,cedula_est,id_carrera,carrera_nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,horas_solicitadas,horas_asignadas,horas_cumplidas,comentario
+FROM ((solicitud_general FULL OUTER JOIN solicitud_especial ON solicitud_general.id_sol_gen = solicitud_especial.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrea.id_carrera)
 WHERE solicitud_general.activo = '1' AND solicitud_especial.activo = '1' AND solicitud_especial.id_estudiante = @carne AND solicitud_general.estado != '0'
 FOR JSON PATH; 
 
@@ -483,8 +482,8 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,carrera,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas, nota_curso_tut,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas
-FROM (((solicitud_general FULL OUTER JOIN solicitud_tutoria ON solicitud_general.id_sol_gen = solicitud_tutoria.id_sol_general) FULL OUTER JOIN curso ON solicitud_tutoria.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_tutoria.id_prof_asistir)
+SELECT id_sol_gen,cedula_est,id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas, nota_curso_tut,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
+FROM ((((solicitud_general FULL OUTER JOIN solicitud_tutoria ON solicitud_general.id_sol_gen = solicitud_tutoria.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrea.id_carrera) FULL OUTER JOIN curso ON solicitud_tutoria.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_tutoria.id_prof_asistir)
 WHERE solicitud_general.activo = '1' AND solicitud_tutoria.activo = '1' AND solicitud_tutoria.id_estudiante = @carne AND solicitud_general.estado = '0'
 COMMIT TRANSACTION;
 END TRY
@@ -507,8 +506,8 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,carrera,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas, nota_curso_tut,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas
-FROM (((solicitud_general FULL OUTER JOIN solicitud_tutoria ON solicitud_general.id_sol_gen = solicitud_tutoria.id_sol_general) FULL OUTER JOIN curso ON solicitud_tutoria.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_tutoria.id_prof_asistir)
+SELECT id_sol_gen,cedula_est,id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas, nota_curso_tut,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
+FROM ((((solicitud_general FULL OUTER JOIN solicitud_tutoria ON solicitud_general.id_sol_gen = solicitud_tutoria.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrea.id_carrera) FULL OUTER JOIN curso ON solicitud_tutoria.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_tutoria.id_prof_asistir)
 WHERE solicitud_general.activo = '1' AND solicitud_tutoria.activo = '1' AND solicitud_tutoria.id_estudiante = @carne AND solicitud_general.estado != '0'
 COMMIT TRANSACTION;
 END TRY
@@ -533,8 +532,8 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,carrera,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,id_curso,nombre_curso,nota_curso_tut,nota_curso_asist_img,horas, nota_curso_asist,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas
-FROM (((solicitud_general FULL OUTER JOIN solicitud_asistente ON solicitud_general.id_sol_gen = solicitud_asistente.id_sol_general) FULL OUTER JOIN curso ON solicitud_asistente.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_asistente.id_prof_asistir)
+SELECT id_sol_gen,cedula_est,id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,id_curso,nombre_curso,nota_curso_tut,nota_curso_asist_img,horas, nota_curso_asist,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
+FROM ((((solicitud_general FULL OUTER JOIN solicitud_asistente ON solicitud_general.id_sol_gen = solicitud_asistente.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrea.id_carrera) FULL OUTER JOIN curso ON solicitud_asistente.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_asistente.id_prof_asistir)
 WHERE solicitud_general.activo = '1' AND solicitud_asistente.activo = '1' AND solicitud_asistente.id_estudiante = @carne AND solicitud_general.estado = '0'
 COMMIT TRANSACTION;
 END TRY
@@ -557,8 +556,8 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,carrera,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,id_curso,nombre_curso,nota_curso_tut,nota_curso_asist_img,horas, nota_curso_asist,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas
-FROM (((solicitud_general FULL OUTER JOIN solicitud_asistente ON solicitud_general.id_sol_gen = solicitud_asistente.id_sol_general) FULL OUTER JOIN curso ON solicitud_asistente.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_asistente.id_prof_asistir)
+SELECT id_sol_gen,cedula_est,id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,id_curso,nombre_curso,nota_curso_asist,nota_curso_asist_img,horas,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
+FROM ((((solicitud_general FULL OUTER JOIN solicitud_asistente ON solicitud_general.id_sol_gen = solicitud_asistente.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrea.id_carrera) FULL OUTER JOIN curso ON solicitud_asistente.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_asistente.id_prof_asistir)
 WHERE solicitud_general.activo = '1' AND solicitud_asistente.activo = '1' AND solicitud_asistente.id_estudiante = @carne AND solicitud_general.estado != '0'
 COMMIT TRANSACTION;
 END TRY
@@ -582,8 +581,8 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,carrera,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,horas,horas_cumplidas
-FROM (solicitud_general FULL OUTER JOIN solicitud_estudiante ON solicitud_general.id_sol_gen = solicitud_estudiante.id_sol_general)
+SELECT id_sol_gen,cedula_est,id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,horas,horas_cumplidas,comentario
+FROM ((solicitud_general FULL OUTER JOIN solicitud_estudiante ON solicitud_general.id_sol_gen = solicitud_estudiante.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrea.id_carrera)
 WHERE solicitud_general.activo = '1' AND solicitud_estudiante.activo = '1' AND solicitud_estudiante.id_estudiante = @carne AND solicitud_general.estado = '0'
 FOR JSON PATH; 
 
@@ -608,10 +607,64 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,carrera,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,horas,horas_cumplidas
-FROM (solicitud_general FULL OUTER JOIN solicitud_estudiante ON solicitud_general.id_sol_gen = solicitud_estudiante.id_sol_general)
+SELECT id_sol_gen,cedula_est,id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,horas,horas_cumplidas,comentario
+FROM ((solicitud_general FULL OUTER JOIN solicitud_estudiante ON solicitud_general.id_sol_gen = solicitud_estudiante.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrea.id_carrera)
 WHERE solicitud_general.activo = '1' AND solicitud_estudiante.activo = '1' AND solicitud_estudiante.id_estudiante = @carne AND solicitud_general.estado != '0'
 FOR JSON PATH; 
+
+COMMIT TRANSACTION;
+END TRY
+
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+END
+GO
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+CREATE PROCEDURE Update_Estado_Solicitud_UDP
+	-- Add the parameters for the stored procedure here
+	@id_solicitud int,
+	@id_estado int,
+	@comentario varchar(max)
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+	UPDATE solicitud_general SET estado = @id_estado WHERE id_sol_gen = @id_solicitud
+	UPDATE solicitud_general SET comentario = @comentario WHERE id_sol_gen = @id_solicitud
+
+COMMIT TRANSACTION;
+END TRY
+
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+END
+GO
+
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+CREATE PROCEDURE Delete_Solicitud_UDP
+	-- Add the parameters for the stored procedure here
+	@id_solicitud int
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+	UPDATE solicitud_general SET activo = '0' WHERE id_sol_gen = @id_solicitud
 
 COMMIT TRANSACTION;
 END TRY

@@ -10,7 +10,8 @@ INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('8', 'Finalizado
 INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('9', 'Corregido por el Usuario', '1');
 INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('10', 'Cancelado dentro de Tiempo', '1');
 INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('11', 'Cancelado Fuera de Tiempo', '1');
-
+INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('12', 'Pendiente de Cancelación', '1');
+INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('13', 'Cancelación Rechazada', '1');
 
 INSERT INTO curso(codigo_curso,nombre_curso,activo) VALUES('CE4101','Especificacón y Deseño de Software','1');
 INSERT INTO curso(codigo_curso,nombre_curso,activo) VALUES('CE3101','Bases de Datos','1');
