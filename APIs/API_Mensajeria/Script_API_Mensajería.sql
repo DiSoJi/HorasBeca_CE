@@ -1,0 +1,57 @@
+CREATE TABLE MENSAJENUEVO(
+Id INT IDENTITY(1,1) NOT NULL,
+EmailOrigen VARCHAR(50) NOT NULL,
+EmailDestino VARCHAR(50) NOT NULL,   
+Tema VARCHAR(50),
+Mensaje VARCHAR(250) NOT NULL,
+Intentos INT NOT NULL,
+Prioridad INT NOT NULL,
+PRIMARY KEY(Id)
+);
+
+CREATE TABLE MENSAJE(
+Id INT NOT NULL,
+EmailOrigen VARCHAR(50) NOT NULL,
+EmailDestino VARCHAR(50) NOT NULL,   
+Tema VARCHAR(50),
+Mensaje VARCHAR(250) NOT NULL,
+Estado INT NOT NULL,
+PRIMARY KEY(Id)
+);
+
+CREATE TABLE ESTADO(
+Id INT NOT NULL,
+Estado VARCHAR(10) NOT NULL,
+PRIMARY KEY(Id)
+);
+
+ALTER TABLE MENSAJE
+ADD CONSTRAINT FK_MENSAJE_ESTADO FOREIGN KEY (Estado) REFERENCES ESTADO(Id)
+GO
+
+CREATE PROCEDURE dbo.INSERTARMENSAJENUEVO @EmailOrigen VARCHAR(50)=NULL,@EmailDestino VARCHAR(50)=NULL,
+@Tema VARCHAR(50)=NULL,@Mensaje VARCHAR(250)=NULL,@Intentos INT=NULL,@Prioridad INT=NULL
+AS
+INSERT INTO [dbo].[MENSAJENUEVO]
+		([EmailOrigen],[EmailDestino],[Tema],[Mensaje],[Intentos],[Prioridad])
+VALUES(@EmailOrigen,@EmailDestino,@Tema,@Mensaje,@Intentos,@Prioridad)
+GO
+
+CREATE PROCEDURE dbo.MOVERMENSAJE @Id INT=NULL,@Estado INT=NULL
+AS
+INSERT INTO [dbo].[MENSAJE] ([Id],[EmailOrigen],[EmailDestino],[Tema],[Mensaje],[Estado])
+SELECT @Id,[EmailOrigen],[EmailDestino],[Tema],[Mensaje],@Estado FROM [dbo].[MENSAJENUEVO]
+WHERE Id=@Id;
+DELETE FROM [dbo].[MENSAJENUEVO]
+WHERE Id=@Id
+GO
+
+CREATE PROCEDURE dbo.OBTENERMESAJESNUEVOS
+AS
+SELECT [Id],[EmailOrigen],[EmailDestino],[Tema],[Mensaje],[Intentos] FROM [dbo].[MENSAJENUEVO]
+ORDER BY [Prioridad] DESC;
+GO
+
+Insert into ESTADO(Id,Estado)VALUES(0,'Fallido')
+Insert into ESTADO(Id,Estado)VALUES(1,'Enviado')
+GO
