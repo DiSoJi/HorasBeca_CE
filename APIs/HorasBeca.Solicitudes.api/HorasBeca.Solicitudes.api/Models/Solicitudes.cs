@@ -46,6 +46,7 @@ namespace HorasBeca.Solicitudes.api.Models
             dbConexion.Open();
             switch (tipoSolicitud)
             {
+                //Solicitud Horas Estudiante
                 case ("HE"):
                     SqlCommand Comando = new SqlCommand("Insert_Sol_Horas_Estudiante_UDP", dbConexion);//LLama un Stored Procedur
                     Comando.CommandType = CommandType.StoredProcedure;
@@ -53,6 +54,7 @@ namespace HorasBeca.Solicitudes.api.Models
                     Comando.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
                     rowasAffected = Comando.ExecuteNonQuery();
                     break;
+                //Solicitud Horas Asistente
                 case ("HA"):
                     SqlCommand Comando1 = new SqlCommand("Insert_Sol_Horas_Asistente_UDP", dbConexion);//LLama un Stored Procedur
                     Comando1.CommandType = CommandType.StoredProcedure;
@@ -60,6 +62,7 @@ namespace HorasBeca.Solicitudes.api.Models
                     Comando1.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
                     rowasAffected = Comando1.ExecuteNonQuery();
                     break;
+                //Solicitud Asistencia Especial 
                 case ("AE"):
                     SqlCommand Comando2 = new SqlCommand("Insert_Sol_Horas_Especial_UDP", dbConexion);//LLama un Stored Procedur
                     Comando2.CommandType = CommandType.StoredProcedure;
@@ -67,6 +70,7 @@ namespace HorasBeca.Solicitudes.api.Models
                     Comando2.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
                     rowasAffected = Comando2.ExecuteNonQuery();
                     break;
+                //Solicitud Horas Tutoria
                 case ("HT"):
                     SqlCommand Comando3 = new SqlCommand("Insert_Sol_Horas_Tutor_UDP", dbConexion);//LLama un Stored Procedur
                     Comando3.CommandType = CommandType.StoredProcedure;
@@ -87,7 +91,7 @@ namespace HorasBeca.Solicitudes.api.Models
             }
             return respuesta;
         }
-           
+        //Wrapper para enviar la informacion de la solicitud de asistencia 
         public DataTable SolicitudWrapper(JObject data)
         {
             dynamic temp = data;
@@ -117,7 +121,6 @@ namespace HorasBeca.Solicitudes.api.Models
             table.Columns.Add("estado", typeof(int));
             table.Columns.Add("imgCed", typeof(SqlBinary));
             table.Columns.Add("imgCar", typeof(SqlBinary));
-
             //Agregar informacion
             table.Rows.Add((int)temp.cedula, (float)temp.proPonGeneral, (float)temp.proPonSemestral,
                 (int)temp.creditosGeneral, (int)temp.creditosSemestre, (int)temp.cuentaBanco, (string)temp.banco, 
@@ -128,7 +131,7 @@ namespace HorasBeca.Solicitudes.api.Models
             return table;
 
         }
-
+        //Wrapper para enviar la informacion sobre otras solicitudes de asistencias en otras areas/escuelas etc
         public DataTable OtrasAsistenciasWrapper(dynamic desc, dynamic horas)
         {
             DataTable table = new DataTable();
