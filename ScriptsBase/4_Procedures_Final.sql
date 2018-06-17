@@ -19,13 +19,15 @@ BEGIN
 BEGIN TRANSACTION;
 
 BEGIN TRY
+
+	SET NOCOUNT ON;
     DECLARE @sol_gen_ID int
 	DECLARE @ID_estudiante varchar(11)
-	SET NOCOUNT ON;
+	
 	SELECT @ID_estudiante = carne FROM @solicitudWrapper
 
-	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img, estado,carne_img,anios_TEC, activo)
-	SELECT cedula, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, estado ,imgCar,anosTEC, 1
+	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado, activo)
+	SELECT cedula, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado, 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()
@@ -72,8 +74,8 @@ BEGIN TRY
    	DECLARE @sol_gen_ID int
 	SET NOCOUNT ON;
 
-	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img, estado,anios_TEC, activo)
-	SELECT cedula, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco,anosTEC, estado, 1
+	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado, activo)
+	SELECT cedula, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado, 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()
@@ -117,8 +119,8 @@ BEGIN TRY
    	DECLARE @sol_gen_ID int
 	SET NOCOUNT ON;
 
-	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img, estado,anios_TEC, activo)
-	SELECT cedula, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco,anosTEC, estado, 1
+	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado, activo)
+	SELECT cedula, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado, 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()
@@ -161,8 +163,8 @@ BEGIN TRY
     DECLARE @sol_gen_ID int
 	SET NOCOUNT ON;
 
-	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img, estado,anios_TEC, activo)
-	SELECT cedula, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco,anosTEC, estado, 1
+	INSERT INTO solicitud_general (	cedula_est, prom_pond_gen, prom_pond_sem, creds_gen, creds_sem, cuenta_banco, banco, fecha_solicitud, prom_pond_gen_img, prom_pond_sem_img, creds_gen_img, creds_sem_img, cuenta_banco_img,cedula_img, carne_img,anios_TEC,telefono, estado, activo)
+	SELECT cedula, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado, 1
 	FROM @solicitudWrapper
 
 	set @sol_gen_ID = SCOPE_IDENTITY()

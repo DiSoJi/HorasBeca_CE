@@ -94,6 +94,7 @@ CREATE TABLE solicitud_general (
 	cedula_img varbinary(max) not null,
 	carne_img varbinary(max) not null,
 	anios_TEC int not null,
+	telefono int not null,
 	estado int not null, 
 	activo bit not null
 	
