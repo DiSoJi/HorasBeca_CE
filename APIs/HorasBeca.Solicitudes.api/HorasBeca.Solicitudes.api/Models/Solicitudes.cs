@@ -15,6 +15,7 @@ namespace HorasBeca.Solicitudes.api.Models
     public class Solicitudes
     {
         string connectionString = "";
+        int rowsAffected = 0;
         public Solicitudes()
         {
             connectionString = WebConfigurationManager.AppSettings["ConnectionString"];
@@ -23,7 +24,6 @@ namespace HorasBeca.Solicitudes.api.Models
         public JObject InsertarSolicitud(JObject data)
         {
             JObject respuesta = new JObject();
-            int rowasAffected = 0;
             string tipoSolicitud = (string)data.GetValue("tipoSolicitud");
             //Cobierte las imagenes de base64 a bit[]
             data["imgPpg"] = Convert.FromBase64String((string)data.GetValue("imgPpg"));
@@ -39,47 +39,93 @@ namespace HorasBeca.Solicitudes.api.Models
             var otrasAsistenciasHoras = data.GetValue("otrasAsistenciasHoras");
             data.Remove("otrasAsistenciasDesc");
             data.Remove("otrasAsistenciasHoras");
+            bool existOtrasAsistencias = false;
             //Retorna una wrapper(tabla) con toda la informacion para mandarla al store procedure
             DataTable solicitudTable = SolicitudWrapper(data);
-            DataTable otrasAsistenciasTable = OtrasAsistenciasWrapper(otrasAsistenciasDesc, otrasAsistenciasHoras);
+            DataTable otrasAsistenciasTable = new DataTable();
+            if (otrasAsistenciasDesc.Count() > 0) {
+                existOtrasAsistencias = true;
+                otrasAsistenciasTable = OtrasAsistenciasWrapper(otrasAsistenciasDesc, otrasAsistenciasHoras);
+            }
             SqlConnection dbConexion = new SqlConnection(connectionString);
             dbConexion.Open();
             switch (tipoSolicitud)
             {
                 //Solicitud Horas Estudiante
                 case ("HE"):
-                    SqlCommand Comando = new SqlCommand("Insert_Sol_Horas_Estudiante_UDP", dbConexion);//LLama un Stored Procedur
-                    Comando.CommandType = CommandType.StoredProcedure;
-                    Comando.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
-                    Comando.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
-                    rowasAffected = Comando.ExecuteNonQuery();
+                    if (existOtrasAsistencias)
+                    {
+                        SqlCommand Comando = new SqlCommand("Insert_Sol_Horas_Estudiante_UDP_1", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
+                        Comando.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Insert_Sol_Horas_Estudiante_UDP_2", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
                     break;
                 //Solicitud Horas Asistente
                 case ("HA"):
-                    SqlCommand Comando1 = new SqlCommand("Insert_Sol_Horas_Asistente_UDP", dbConexion);//LLama un Stored Procedur
-                    Comando1.CommandType = CommandType.StoredProcedure;
-                    Comando1.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
-                    Comando1.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
-                    rowasAffected = Comando1.ExecuteNonQuery();
+                    if (existOtrasAsistencias)
+                    {
+                        SqlCommand Comando = new SqlCommand("Insert_Sol_Horas_Asistente_UDP_1", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
+                        Comando.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Insert_Sol_Horas_Asistente_UDP_2", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
                     break;
                 //Solicitud Asistencia Especial 
                 case ("AE"):
-                    SqlCommand Comando2 = new SqlCommand("Insert_Sol_Horas_Especial_UDP", dbConexion);//LLama un Stored Procedur
-                    Comando2.CommandType = CommandType.StoredProcedure;
-                    Comando2.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
-                    Comando2.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
-                    rowasAffected = Comando2.ExecuteNonQuery();
+                    if (existOtrasAsistencias)
+                    {
+                        SqlCommand Comando = new SqlCommand("Insert_Sol_Horas_Especial_UDP_1", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
+                        Comando.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Insert_Sol_Horas_Especial_UDP_2", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
                     break;
                 //Solicitud Horas Tutoria
                 case ("HT"):
-                    SqlCommand Comando3 = new SqlCommand("Insert_Sol_Horas_Tutor_UDP", dbConexion);//LLama un Stored Procedur
-                    Comando3.CommandType = CommandType.StoredProcedure;
-                    Comando3.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
-                    Comando3.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
-                    rowasAffected = Comando3.ExecuteNonQuery();
+                    if (existOtrasAsistencias)
+                    {
+                        SqlCommand Comando = new SqlCommand("Insert_Sol_Horas_Tutor_UDP_1", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
+                        Comando.Parameters.Add("@AsistenciasWrapper", SqlDbType.Structured).Value = otrasAsistenciasTable;
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Insert_Sol_Horas_Tutor_UDP_2", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@solicitudWrapper", SqlDbType.Structured).Value = solicitudTable;
+                        rowsAffected = Comando.ExecuteNonQuery();
+                    }
                     break;
             }
-            if (rowasAffected != 0)
+            //Por problemas con el noncount la insersion es correcta si afecta al numero teorico de filas
+            if (rowsAffected == (2 + otrasAsistenciasDesc.Count()))
             {
                 respuesta.Add("Estado", "Exito");
                 respuesta.Add("Codigo", 200);
@@ -111,6 +157,8 @@ namespace HorasBeca.Solicitudes.api.Models
             table.Columns.Add("imgCg", typeof(SqlBinary));
             table.Columns.Add("imgCs", typeof(SqlBinary));
             table.Columns.Add("imgCBanco", typeof(SqlBinary));
+            table.Columns.Add("imgCed", typeof(SqlBinary));
+            table.Columns.Add("imgCar", typeof(SqlBinary));
             table.Columns.Add("idCurso", typeof(int));
             table.Columns.Add("idProfesor", typeof(int));
             table.Columns.Add("notaCurso", typeof(int));
@@ -119,15 +167,14 @@ namespace HorasBeca.Solicitudes.api.Models
             table.Columns.Add("telefono", typeof(int));
             table.Columns.Add("anosTEC", typeof(float));
             table.Columns.Add("estado", typeof(int));
-            table.Columns.Add("imgCed", typeof(SqlBinary));
-            table.Columns.Add("imgCar", typeof(SqlBinary));
+            
             //Agregar informacion
             table.Rows.Add((int)temp.cedula, (float)temp.proPonGeneral, (float)temp.proPonSemestral,
                 (int)temp.creditosGeneral, (int)temp.creditosSemestre, (int)temp.cuentaBanco, (string)temp.banco, 
                 (string)temp.carne, (int)temp.horas, (byte[])temp.imgPpg, (byte[])temp.imgPps, (byte[])temp.imgCg,
-                (byte[])temp.imgCs, (byte[])temp.imgCBanco, (int)temp.idCurso, (int)temp.idProfesor, (int)temp.notaCurso,
-                (byte[])temp.imgNotaCurso, (DateTime)temp.fecha, (int)temp.telefono, (float)temp.anosTEC,(int)temp.estado,
-                (byte[])temp.imgCed, (byte[])temp.imgCar);
+                (byte[])temp.imgCs, (byte[])temp.imgCBanco, (byte[])temp.imgCed, (byte[])temp.imgCar, (int)temp.idCurso,
+                (int)temp.idProfesor, (int)temp.notaCurso, (byte[])temp.imgNotaCurso, (DateTime)temp.fecha, 
+                (int)temp.telefono, (float)temp.anosTEC,(int)temp.estado);
             return table;
 
         }
@@ -137,17 +184,93 @@ namespace HorasBeca.Solicitudes.api.Models
             DataTable table = new DataTable();
             table.Columns.Add("horas", typeof(int));
             table.Columns.Add("descripcion", typeof(string));
-            table.Columns.Add("id", typeof(string));
+            //table.Columns.Add("id", typeof(string));
             int a = 0;
             foreach(string i in desc)
             {
-                table.Rows.Add((int)horas[a], i , a);
+                table.Rows.Add((int)horas[a], i );
                 a++;
             }
             return table;
         }
-         
-            
+        //Funcion para obtener solicitudes por tipo de solicitud 
+        public JObject ObtenerTodasSolicitudesPorTipo(JObject data)
+        {
+            JObject respuesta = new JObject();
+            string tipoSolicitud = (string)data.GetValue("tipoSolicitud");
+            SqlConnection dbConexion = new SqlConnection(connectionString);
+            dbConexion.Open();
+            switch (tipoSolicitud)
+            {
+                case ("HE"):
+                    SqlCommand Comando = new SqlCommand("", dbConexion);//LLama un Stored Procedur
+                    Comando.CommandType = CommandType.StoredProcedure;
+                    rowsAffected = Comando.ExecuteNonQuery();
+                    break;
+                case ("HA"):
+                    SqlCommand Comando1 = new SqlCommand("", dbConexion);//LLama un Stored Procedur
+                    Comando1.CommandType = CommandType.StoredProcedure;
+                    rowsAffected = Comando1.ExecuteNonQuery();
+                    break;
+                case ("AE"):
+                    SqlCommand Comando2 = new SqlCommand("", dbConexion);//LLama un Stored Procedur
+                    Comando2.CommandType = CommandType.StoredProcedure;
+                    rowsAffected = Comando2.ExecuteNonQuery();
+                    break;
+                case ("HT"):
+                    SqlCommand Comando3 = new SqlCommand("", dbConexion);//LLama un Stored Procedur
+                    Comando3.CommandType = CommandType.StoredProcedure;
+                    rowsAffected = Comando3.ExecuteNonQuery();
+                    break;
+            }
+            //Se comprueba si el select fue exitoso
+            if (rowsAffected !=0 )
+            {
+                respuesta.Add("Estado", "Exito");
+                respuesta.Add("Codigo", 200);
+            }
+            else
+            {
+                respuesta.Add("Estado", "Error");
+                respuesta.Add("Codigo", 201);
+            }
+            return respuesta;
+        }
 
+        //Funcion para obtener solicitudes por carnet
+        public JObject ObtenerTodasSolicitudesPorCarne(JObject data)
+        {
+            JObject respuesta = new JObject();
+            string estado = (string)data.GetValue("estado");
+            SqlConnection dbConexion = new SqlConnection(connectionString);
+            dbConexion.Open();
+            switch (estado)
+            {
+                case ("borrador"):
+                    SqlCommand Comando = new SqlCommand("Select_SolicitudesEspecialxCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
+                    Comando.CommandType = CommandType.StoredProcedure;
+                    Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                    rowsAffected = Comando.ExecuteNonQuery();
+                    break;
+                case ("historial"):
+                    SqlCommand Comando1 = new SqlCommand("Select_SolicitudesEspecialxCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
+                    Comando1.CommandType = CommandType.StoredProcedure;
+                    Comando1.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                    rowsAffected = Comando1.ExecuteNonQuery();
+                    break;
+            }
+            //Se comprueba si el select fue exitoso
+            if (rowsAffected != 0)
+            {
+                respuesta.Add("Estado", "Exito");
+                respuesta.Add("Codigo", 200);
+            }
+            else
+            {
+                respuesta.Add("Estado", "Error");
+                respuesta.Add("Codigo", 201);
+            }
+            return respuesta;
+        }
     }
 }

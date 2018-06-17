@@ -28,10 +28,14 @@ namespace HorasBeca.Solicitudes.api.Controllers
         {
             JObject resultado = new JObject();
             switch (codigo){
-                case "S01"://Codigo S01 -> Envio de solicitud
+                case ("S01")://Codigo S01 -> Envio de solicitud
                     resultado = solicitud.InsertarSolicitud(x);
                     break;
-                case "S02"://Codigo S02 -> Solicitud de solicitudes
+                case ("S02")://Codigo S02 -> Solicitud de solicitudes por tipo solicitud
+                    resultado = solicitud.ObtenerTodasSolicitudesPorTipo(x);
+                    break;
+                case ("S03")://Codigo S03 -> Solicitud de solicitudes por carne
+                    resultado = solicitud.ObtenerTodasSolicitudesPorCarne(x);
                     break;
                 default:
                     break;

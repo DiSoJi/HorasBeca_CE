@@ -1,0 +1,31 @@
+SolicitudesController
+--InsertarSolicitud
+http://localhost:7010/api/Solicitudes?codigo=S01
+{"tipoSolicitud": "HE",
+"cedula" : 895659,
+"proPonGeneral":89.2,
+"proPonSemestral":78.3,
+"creditosGeneral":85,
+"creditosSemestre":545,
+"cuentaBanco":54875698,
+"banco":"hola",
+"carne":2015028430,
+"horas": 54,
+"imgPpg":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
+"imgPps":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
+"imgCg":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
+"imgCs":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
+"imgCBanco":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
+"imgCed":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
+"imgCar":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
+"idCurso":78,
+"idProfesor":859,
+"notaCurso":100,
+"imgNotaCurso":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
+"fecha":"01/06/2013 00:00:00",
+"telefono":45896785,
+"anosTEC":5.2,
+"estado":5,
+"otrasAsistenciasDesc": ["uno","dos","tres"],
+"otrasAsistenciasHoras":[5,2,1]
+}
