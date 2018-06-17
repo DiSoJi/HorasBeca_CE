@@ -148,6 +148,14 @@ CREATE TABLE estados_solicitud (
 	activo bit not null
 );
 
+CREATE TABLE otras_asistencias (
+	id_otras_asistencia int PRIMARY KEY,
+	id_estudiante varchar(11),
+	horas int,
+	descripcion varchar(max),
+	activo bit not null
+);
+
 ALTER TABLE curso ADD CONSTRAINT codigo_curso PRIMARY KEY (codigo_curso);
 
 ALTER TABLE solicitud_estudiante ADD CONSTRAINT SolEst_x_Estudiante FOREIGN KEY (id_estudiante) REFERENCES estudiantes(carne);
@@ -167,3 +175,5 @@ ALTER TABLE solicitud_asistente ADD CONSTRAINT SolAsis_x_Curso FOREIGN KEY (id_c
 ALTER TABLE solicitud_tutoria ADD CONSTRAINT SolTuto_x_Curso FOREIGN KEY (id_curso) REFERENCES curso(codigo_curso);
 
 ALTER TABLE solicitud_general ADD CONSTRAINT SolGen_x_Estado FOREIGN KEY (estado) REFERENCES estados_solicitud(id_estado); 
+
+ALTER TABLE otras_asistencias ADD CONSTRAINT OtrasAsistencias_x_Estudiante FOREIGN KEY (id_estudiante) REFERENCES estudiantes(carne);
