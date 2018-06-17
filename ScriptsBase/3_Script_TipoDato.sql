@@ -7,6 +7,7 @@ GO
 -- Create the data type
 CREATE TYPE [dbo].[SolicitudWrapper] AS TABLE (
 			cedula int null,
+			carrera varchar(max) null,
 			proPonGeneral float null,
 			proPonSemestral float null,
 			creditosGeneral int null,

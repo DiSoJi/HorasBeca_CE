@@ -79,6 +79,7 @@ CREATE TABLE curso (
 CREATE TABLE solicitud_general (
 	id_sol_gen int IDENTITY(1,1) PRIMARY KEY,
 	cedula_est int,
+	carrera varchar(max) not null,
 	prom_pond_gen float not null,
 	prom_pond_sem float not null,
 	creds_gen int not null,
@@ -96,6 +97,7 @@ CREATE TABLE solicitud_general (
 	anios_TEC int not null,
 	telefono int not null,
 	estado int not null, 
+	horas_cumplidas float not null,
 	activo bit not null
 	
 );
@@ -156,6 +158,25 @@ CREATE TABLE otras_asistencias (
 	descripcion varchar(max),
 	activo bit not null
 );
+CREATE TABLE control_estudiante(
+	id_control int IDENTITY(1,1) PRIMARY KEY,
+	id_estudiante varchar(11) not null,
+	id_profesor int not null,
+	comentario varchar(max) null,
+	horas_cumplidas float null,
+	activo bit not null
+
+);
+
+CREATE TABLE config(
+	id_periodo int IDENTITY(1,1) PRIMARY KEY,
+	fecha_apertura datetime not null,
+	fecha_cierre datetime not null,
+	activo bit not null
+);
+
+ALTER TABLE control_estudiante ADD CONSTRAINT ContEst_x_Estudiante FOREIGN KEY (id_estudiante ) REFERENCES estudiantes(carne);
+ALTER TABLE control_estudiante ADD CONSTRAINT ContEst_x_Usuario FOREIGN KEY (id_profesor ) REFERENCES usuario(id);
 
 ALTER TABLE curso ADD CONSTRAINT codigo_curso PRIMARY KEY (codigo_curso);
 
@@ -178,3 +199,4 @@ ALTER TABLE solicitud_tutoria ADD CONSTRAINT SolTuto_x_Curso FOREIGN KEY (id_cur
 ALTER TABLE solicitud_general ADD CONSTRAINT SolGen_x_Estado FOREIGN KEY (estado) REFERENCES estados_solicitud(id_estado); 
 
 ALTER TABLE otras_asistencias ADD CONSTRAINT OtrasAsistencias_x_Estudiante FOREIGN KEY (id_estudiante) REFERENCES estudiantes(carne);
+
