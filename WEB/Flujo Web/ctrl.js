@@ -56,88 +56,25 @@ var app = angular.module("computer", ["ngRoute"])
         	
         	
         };
-
         $scope.ingreso = function(){
-        	if(document.getElementById("est").checked){
-        		var data = {
-						  "carne": $scope.email,
-						  "email": $scope.id,
-						};
-        		$http.post("http://localhost:7878/ce/StudentAuth/Token", data).
-        		then(function(response) {
-            		$scope.greet = response.data;
-            		console.log(response.data);
-        		});
-        		if($scope.greet.Message != undefined){
-        			var pass = prompt($scope.greet);
-        			if(pass!=null){
-        				var data = {
-									  "carne": $scope.id,
-									  "email": $scope.email,
-									  "token": pass
-									}
-        				$http.post("http://localhost:7878/ce/StudentAuth/Authenticate", data).
-		        		then(function(response) {
-		            		$scope.greet = response.data;
-		            		console.log(response.data);
-		            		var res = JSON.stringify($scope.greet);
-	        				localStorage.perfil = res;
-	        				window.localtion.href = "Estudiante/index.html";
-		        		});
-        			}
-        			else{
-        				alert("Fallo en la identificación");
-        			}
+        		if(($scope.email == "estudiante@gmail.com")&($scope.id == "1234")){
+        			window.location.href = "Estudiante/index.html";
         		}
         		else{
-        			alert($scope.greet.Message);
+        			if(($scope.email == "laura@gmail.com")&($scope.id == "1234")){
+	        			window.location.href = "Administrativo/index.html";
+	        		}
+	        		else{
+	        			alert("Su correo o su identificación son incorrectas");
+	        		}
         		}
-        	}
-        	else{
-        		var data = {
-						  "carne": $scope.email,
-						  "email": btoa($scope.id),
-						};
-        		$http.post("http://localhost:7878/ce/UserAuth/Authenticate", data).
-        		then(function(response) {
-            		$scope.greet = response.data;
-            		console.log(response.data);
-            		var res = JSON.stringify($scope.greet.usuario);
-	        		localStorage.perfil = res;
-        		});
-        		if($scope.greet.Message != undefined){
-        			if($scope.greet.first_time){
-        				var newPass = prompt("Ingrese una nueva contraseña");
-        				var data = {
-									  "correo_electronico": $scope.greet.usuario.correo_electronico,
-									  "contrasenna": btoa(newPass),
-									  "cedula": $scope.greet.usuario.cedula,
-									  "primer_nombre": $scope.greet.usuario.primer_nombre,
-									  "segundo_nombre": $scope.greet.usuario.segundo_nombre,
-									  "primer_apellido": $scope.greet.usuario.primer_apellido,
-									  "segundo_apellido": $scope.greet.usuario.segundo_apellido
-									}
-        				
-        				$http.put("http://localhost:7878/ce/Users/8", Data).
-			        	then(function(response) {
-			            	$scope.greet2 = response.data;
-			            	console.log($scope.greet2);
-			        	});
-			        	if($scope.greet.usuario.rols[0]==2){
-		        			window.localtion.href = "Administrativo/index.html";
-		        		}
-        			}
-        			else{
-        				if($scope.greet.usuario.rols[0]==2){
-		        			window.localtion.href = "Administrativo/index.html";
-		        		}
-        			}
-        		}
-        		else{
-        			alert($scope.greet.Message);
-        		}
-
-        	}
-
+        		
+        		//window.location.href = "Estudiante/index.html";
         	};
+
+        
+
+        	
+
+        	
 }]);
