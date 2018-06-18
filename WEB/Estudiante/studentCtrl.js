@@ -104,7 +104,8 @@ var app = angular.module("computer", ["ngRoute"])
 	}])
 
 .controller("StudentCtrl",["$scope", "$http",function($scope, $http, $location, MyService){
-	$scope.perfil = localStorage.perfil;
+	$scope.solicitudes = [{"ID":115, "Fecha de Solicitud":"04/02", "Hora de Solicitud":"11:14AM", "Estado":"Pendiente"},{"ID":191, "Fecha de Solicitud":"05/02", "Hora de Solicitud":"08:52AM", "Estado":"Pendiente"}];
+	/*$scope.perfil = localStorage.perfil;
 	  for(i in $scope.perfil){
 	        $scope.perfil = $scope.perfil.replace("%7B","{");
 	    $scope.perfil = $scope.perfil.replace("%22","\"");
@@ -116,7 +117,7 @@ var app = angular.module("computer", ["ngRoute"])
 	$scope.primerApellido = $scope.perfil.primer_apellido;
 	$scope.segundoApellido = $scope.perfil.segundo_apellido;
 	$scope.carne = parseInt($scope.perfil.carne);
-	$scope.correo = $scope.perfil.correo_electronico;
+	$scope.correo = $scope.perfil.correo_electronico;*/
 	$scope.res = {};
 	$scope.tabla = {};
 	$scope.horasAE = 0;
@@ -274,11 +275,35 @@ var app = angular.module("computer", ["ngRoute"])
 	       	console.log($scope.data);
        	};
        	$scope.loadHist = function(){
-       		/*$http.get("http://webapi220171117104514.azurewebsites.net/api/proveedor").
-        	then(function(response) {
-            	$scope.proveedores = response.data.Proveedores;
-        	});*/
-       		$scope.solicitudes = [{"ID":115, "Fecha de Solicitud":"04/02", "Hora de Solicitud":"11:14AM", "Estado":"Pendiente"},{"ID":191, "Fecha de Solicitud":"05/02", "Hora de Solicitud":"08:52AM", "Estado":"Pendiente"}];
+       		var dir = window.location.href.toString().split("/")[window.location.href.toString().split("/").length - 1];
+       		var tag = "";
+       		if(dir=="hEstHL"){
+       			tag = "HE";
+       		}
+       		if(dir=="hAsistHL"){
+       			tag = "HA";
+       		}
+       		if(dir=="hTutorHL"){
+       			tag = "HT";
+       		}
+       		if(dir=="asistEspHL"){
+       			tag = "AE";
+       		}
+       		var Data = {
+						"tipoSolicitud":tag,
+						"estado":"Historial",
+						"carne":$scope.perfil.carne
+						};
+			$http.post("http://localhost:7010/api/Solicitudes?codigo=S03", Data).
+			then(function(response) {
+				$scope.res = response.data;
+            	console.log($scope.res);
+        	});
+        	$scope.solicitudes = [];
+        	for(i in $scope.res.Solicitudes){
+        		var temp = {"ID":$scope.res.Solicitudes[i].id_sol_gen, "Fecha":$scope.res.Solicitudes[i].fecha_solicitud, "Estado":$scope.res.Solicitudes[i].estado};
+        		$scope.solicitudes.push(temp);
+        	}
        	};
         $scope.loadBorrador = function(){
        		$scope.solicitudes = [{"ID":115, "Fecha de Solicitud":"04/02", "Hora de Solicitud":"11:14AM", "Estado":"Pendiente"},{"ID":191, "Fecha de Solicitud":"05/02", "Hora de Solicitud":"08:52AM", "Estado":"Pendiente"}];
