@@ -484,7 +484,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas_solicitadas,horas_asignadas,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas_solicitadas,horas_asignadas,horas_cumplidas,comentario
 FROM ((solicitud_general FULL OUTER JOIN solicitud_especial ON solicitud_general.id_sol_gen = solicitud_especial.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera)
 WHERE solicitud_general.activo = '1' AND solicitud_especial.activo = '1' AND solicitud_especial.id_estudiante = @carne AND solicitud_general.estado = '0'
 FOR JSON PATH; 
@@ -510,7 +510,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas_solicitadas,horas_asignadas,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas_solicitadas,horas_asignadas,horas_cumplidas,comentario
 FROM ((solicitud_general FULL OUTER JOIN solicitud_especial ON solicitud_general.id_sol_gen = solicitud_especial.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera)
 WHERE solicitud_general.activo = '1' AND solicitud_especial.activo = '1' AND solicitud_especial.id_estudiante = @carne AND solicitud_general.estado != '0'
 FOR JSON PATH; 
@@ -537,7 +537,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas, nota_curso_tut,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas, nota_curso_tut,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
 FROM ((((solicitud_general FULL OUTER JOIN solicitud_tutoria ON solicitud_general.id_sol_gen = solicitud_tutoria.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera) FULL OUTER JOIN curso ON solicitud_tutoria.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_tutoria.id_prof_asistir)
 WHERE solicitud_general.activo = '1' AND solicitud_tutoria.activo = '1' AND solicitud_tutoria.id_estudiante = @carne AND solicitud_general.estado = '0'
 FOR JSON PATH; 
@@ -562,7 +562,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
 FROM ((((solicitud_general FULL OUTER JOIN solicitud_tutoria ON solicitud_general.id_sol_gen = solicitud_tutoria.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera) FULL OUTER JOIN curso ON solicitud_tutoria.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_tutoria.id_prof_asistir)
 WHERE solicitud_general.activo = '1' AND solicitud_tutoria.activo = '1' AND solicitud_tutoria.id_estudiante = @carne AND solicitud_general.estado != '0'
 FOR JSON PATH; 
@@ -589,7 +589,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_asist_img,horas, nota_curso_asist,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_asist_img,horas, nota_curso_asist,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
 FROM ((((solicitud_general FULL OUTER JOIN solicitud_asistente ON solicitud_general.id_sol_gen = solicitud_asistente.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera) FULL OUTER JOIN curso ON solicitud_asistente.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_asistente.id_prof_asistir)
 WHERE solicitud_general.activo = '1' AND solicitud_asistente.activo = '1' AND solicitud_asistente.id_estudiante = @carne AND solicitud_general.estado = '0'
 FOR JSON PATH; 
@@ -614,7 +614,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_asist,nota_curso_asist_img,horas,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_asist,nota_curso_asist_img,horas,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
 FROM ((((solicitud_general FULL OUTER JOIN solicitud_asistente ON solicitud_general.id_sol_gen = solicitud_asistente.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera) FULL OUTER JOIN curso ON solicitud_asistente.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_asistente.id_prof_asistir)
 WHERE solicitud_general.activo = '1' AND solicitud_asistente.activo = '1' AND solicitud_asistente.id_estudiante = @carne AND solicitud_general.estado != '0'
 FOR JSON PATH; 
@@ -640,7 +640,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas,horas_cumplidas,comentario
 FROM ((solicitud_general FULL OUTER JOIN solicitud_estudiante ON solicitud_general.id_sol_gen = solicitud_estudiante.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera)
 WHERE solicitud_general.activo = '1' AND solicitud_estudiante.activo = '1' AND solicitud_estudiante.id_estudiante = @carne AND solicitud_general.estado = '0'
 FOR JSON PATH; 
@@ -666,7 +666,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas,horas_cumplidas,comentario
 FROM ((solicitud_general FULL OUTER JOIN solicitud_estudiante ON solicitud_general.id_sol_gen = solicitud_estudiante.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera)
 WHERE solicitud_general.activo = '1' AND solicitud_estudiante.activo = '1' AND solicitud_estudiante.id_estudiante = @carne AND solicitud_general.estado != '0'
 FOR JSON PATH; 
@@ -691,7 +691,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas_solicitadas,horas_asignadas,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas_solicitadas,horas_asignadas,horas_cumplidas,comentario
 FROM ((solicitud_general FULL OUTER JOIN solicitud_especial ON solicitud_general.id_sol_gen = solicitud_especial.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera)
 WHERE solicitud_general.activo = '1' AND solicitud_especial.activo = '1' AND solicitud_general.estado != '0'
 ORDER BY id_carrera ASC
@@ -717,7 +717,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas, nota_curso_tut,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas, nota_curso_tut,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
 FROM ((((solicitud_general FULL OUTER JOIN solicitud_tutoria ON solicitud_general.id_sol_gen = solicitud_tutoria.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera) FULL OUTER JOIN curso ON solicitud_tutoria.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_tutoria.id_prof_asistir)
 WHERE solicitud_general.activo = '1' AND solicitud_tutoria.activo = '1' AND solicitud_general.estado != '0'
 ORDER BY id_carrera ASC
@@ -742,7 +742,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_asist,nota_curso_asist_img,horas,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_asist,nota_curso_asist_img,horas,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
 FROM ((((solicitud_general FULL OUTER JOIN solicitud_asistente ON solicitud_general.id_sol_gen = solicitud_asistente.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera) FULL OUTER JOIN curso ON solicitud_asistente.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_asistente.id_prof_asistir)
 WHERE solicitud_general.activo = '1' AND solicitud_asistente.activo = '1' AND solicitud_general.estado != '0'
 ORDER BY id_carrera ASC
@@ -768,7 +768,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas,horas_cumplidas,comentario
+SELECT DISTINCT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,horas,horas_cumplidas,comentario
 FROM ((solicitud_general FULL OUTER JOIN solicitud_estudiante ON solicitud_general.id_sol_gen = solicitud_estudiante.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera)
 WHERE solicitud_general.activo = '1' AND solicitud_estudiante.activo = '1' AND solicitud_general.estado != '0'
 ORDER BY id_carrera ASC
@@ -1512,7 +1512,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id, cedula, primer_nombre, primer_apellido, segundo_apellido
+SELECT DISTINCT id, cedula, primer_nombre, primer_apellido, segundo_apellido
 FROM ((usuario FULL OUTER JOIN roles_por_usuario ON roles_por_usuario.usuario = usuario.id) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol)
 WHERE rol.id_rol = '4'
 
