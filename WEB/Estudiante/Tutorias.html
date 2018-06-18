@@ -2,67 +2,101 @@
       <h2>Horas Tutor</h2>
       <div class="row">
         <div class="col-sm-6">
-           <form class="form-horizontal" action="/action_page.php">
+           <form class="form-horizontal" action="/action_page.php" enctype="multipart/form-data">
               <h1>Datos Generales</h1>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Nombre:</label>
-                <input type="text" class="form-control" id="email" name="email" ng-model="nombre">
+                <input type="text" class="form-control" id="email" name="email" ng-model="nombre" />
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Primer Apellido:</label>
-                  <input type="text" class="form-control" id="email" name="email" ng-model="primerApellido">
+                  <input type="text" class="form-control" id="email" name="email" ng-model="primerApellido" />
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Segundo Apellido:</label>
-                  <input type="text" class="form-control" id="email" name="email" ng-model="segundoApellido">
+                  <input type="text" class="form-control" id="email" name="email" ng-model="segundoApellido" />
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-3" for="email">Carné:</label>
-                  <input type="number" class="form-control" id="email" name="email" ng-model="carne">
-                  <input type="file" name="file" id="file" class="inputfile" />
-                  <label for="file">Adjuntar Imagen</label>
+                <label class="control-label col-sm-3" for="email">Carné:</label>   
+                  <label class="dataContainer">
+                    <input type="number" class="form-control" id="email" name="email" ng-model="carne" />
+                    <label for="email"></label>
+                      <label class="fileContainer">
+                          Adjuntar Imagen
+                          <input type="file" id="imgCarne" />
+                      </label>
+                </label>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Cédula:</label>
-                  <input type="number" class="form-control" id="email" name="email" ng-model="cedula">
-                  <input type="file" name="file" id="file" class="inputfile" />
-                  <label for="file">Adjuntar Imagen</label>
+                  <label class="dataContainer">
+                    <input type="number" class="form-control" id="email" name="email" ng-model="cedula" />
+                    <label for="email"></label>
+                      <label class="fileContainer">
+                          Adjuntar Imagen
+                          <input type="file" id="imgCedula" />
+                      </label>
+                </label>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Teléfono:</label>
-                  <input type="number" class="form-control" id="email" name="email" ng-model="telefono">
+                  <label class="dataContainer">
+                    <input type="number" class="form-control" id="email" name="email" ng-model="telefono" />
+                </label>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Correo Electrónico:</label>
-                <input type="email" class="form-control" id="email" placeholder="ejemplo@gmail.com" ng-model="correo">
+                <input type="email" class="form-control" id="email" placeholder="ejemplo@gmail.com" ng-model="correo" />
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-3" for="email">Promedio Ponderado del Semestre Anterior:</label>
-                <input type="number" class="form-control" id="email" ng-model="pps">
-                <input type="file" name="file" id="file" class="inputfile" />
-                <label for="file">Adjuntar Imagen</label>
+                <label class="control-label col-sm-3" for="email">Promedio Ponderado del Semestre Anterior:</label>  
+                <label class="dataContainer">
+                    <input type="number" class="form-control" id="email" ng-model="pps" />
+                    <label for="email"></label>
+                      <label class="fileContainer">
+                          Adjuntar Imagen
+                          <input type="file" id="imgPps" />
+                      </label>
+                </label>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-3" for="email">Promedio Ponderado General:</label>
-                <input type="number" class="form-control" id="email" ng-model="ppg">
-                <input type="file" name="file" id="file" class="inputfile" />
-                <label for="file">Adjuntar Imagen</label>
+                <label class="control-label col-sm-3" for="email">Promedio Ponderado General:</label>       
+                <label class="dataContainer">
+                    <input type="number" class="form-control" id="email" ng-model="ppg" />
+                    <label for="email"></label>
+                      <label class="fileContainer">
+                          Adjuntar Imagen
+                          <input type="file" id="imgPpg" />
+                      </label>
+                </label>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Créditos Aprobados el Semestre Anterior:</label>
-                <input type="number" class="form-control" id="email" ng-model="cs">
-                <input type="file" name="file" id="file" class="inputfile" />
-                <label for="file">Adjuntar Imagen</label>
+                <label class="dataContainer">
+                  <input type="number" class="form-control" id="email" ng-model="cs" />
+                  <label for="email"></label>
+                    <label class="fileContainer">
+                        Adjuntar Imagen
+                        <input type="file" id="imgCs" />
+                    </label>
+                </label>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Años Como Estudiante Activo en el TEC:</label>
-                <input type="number" class="form-control" id="email" ng-model="anTEC">
+                <label class="dataContainer">
+                    <input type="number" class="form-control" id="email" ng-model="anTEC" />
+                </label>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Créditos Aprobados en el TEC:</label>
-                <input type="number" class="form-control" id="email">
-                <input type="file" name="file" id="file" class="inputfile" />
-                <label for="file">Adjuntar Imagen</label>
+                <label class="dataContainer">
+                    <input type="number" class="form-control" id="email" ng-model="cg" />
+                    <label for="email"></label>
+                      <label class="fileContainer">
+                          Adjuntar Imagen
+                          <input type="file" id="imgCg" />
+                      </label>
+                </label>
               </div>
             </form>
         </div>
@@ -70,22 +104,24 @@
           <form class="form-horizontal" action="/action_page.php">
             <h1>Información del Curso a Tutorear</h1>
             <div class="form-group">
-              <label class="control-label col-sm-3" for="email">Código:</label>
-              <input type="text" class="form-control" id="email" name="email">
-            </div>
-            <div class="form-group">
-              <label class="control-label col-sm-3" for="email">Nombre del Curso:</label>
-              <input type="text" class="form-control" id="email" name="email">
+              <label class="control-label col-sm-3" for="email">Curso a Tutorear:</label>
+              <label class="dataContainer">
+                <select class="custom-select custom-select2" id="curso">
+                  <option value="" disabled selected>Seleccione un Curso</option>
+                  <option ng-repeat="prof in profesores" value="{{prof.ID}}">{{prof.Nombre}}</option>
+                </select>
+              </label>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-3" for="email">Nota Obtenida en el Curso:</label>
-              <input type="number" class="form-control" id="email">
-              <input type="file" name="file" id="file" class="inputfile" />
-              <label for="file">Adjuntar Imagen</label>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-sm-3" for="email">Nombre del Profesor:</label>
-              <input type="text" class="form-control" id="email" name="email">
+              <label class="dataContainer">
+                  <input type="number" class="form-control" id="email" ng-model="notaCurso" />
+                  <label for="email"></label>
+                    <label class="fileContainer">
+                        Adjuntar Imagen
+                        <input type="file" id="imgNotaCurso" />
+                    </label>
+                </label>
             </div>
           </form>
           <form class="form-horizontal" action="/action_page.php">
@@ -99,9 +135,14 @@
             </div>
             <div class="form-group">
               <label class="control-label col-sm-3" for="email">Número de Cuenta:</label>
-              <input type="number" name="banco" class="form-control" id="banco" placeholder="20001" ng-model="bn">
-              <input type="file" name="file" id="file" class="inputfile" />
-              <label for="file">Adjuntar Imagen</label>
+              <label class="dataContainer">
+                  <input type="number" name="banco" class="form-control" id="banco" placeholder="20001" ng-model="bn" />
+                  <label for="email"></label>
+                    <label class="fileContainer">
+                        Adjuntar Imagen
+                        <input type="file" id="imgCuenta" />
+                    </label>
+                </label>
             </div>
           </form>
           <form class="form-horizontal" action="/action_page.php">
@@ -109,11 +150,14 @@
             <label class="info">Si ha realizado solicitud de una beca en otra escuela, especifique:</label>
             <div class="form-group">
               <label class="control-label col-sm-3" for="email">Nombre de la Escuela, Área Académica o Departamento:</label>
-              <input type="text" class="form-control" id="email" name="email">
+              <input type="text" class="form-control" id="otraEscuela" name="email" ng-model="otraEscuela" />
             </div>
             <div class="form-group">
-              <label class="control-label col-sm-3" for="email">Cantidad de Horas:</label>
-              <input type="number" class="form-control" id="email">
+              <label class="control-label col-sm-3" for="email">Cantidad de Horas:</label>   
+              <label class="dataContainer">
+                  <input type="number" class="form-control" id="otraHora" ng-model="otraHora" />
+                  <button type="button" class="btn fileContainer btn3" ng-click="agregarOtrasBecas()">Agregar</button>
+                </label>
             </div>
           </form>
         </div>
@@ -121,10 +165,10 @@
       <br>
       <div class="row">
         <div class="col-sm-6">
-          <button type="button" class="btn" ng-click="enviar()">Enviar</button>
+          <button type="button" class="btn" ng-click="enviarHA()">Enviar</button>
         </div>
         <div class="col-sm-6">
-          <button type="button" class="btn" ng-click="guardar()">Guardar</button>
+          <button type="button" class="btn" ng-click="guardarHA()">Guardar</button>
         </div>
       </div>
   </div>

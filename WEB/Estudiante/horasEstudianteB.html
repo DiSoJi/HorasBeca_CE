@@ -1,5 +1,5 @@
-    <div class="container" ng-controller="StudentCtrl">
-      <h2>Asistencia Especial</h2>
+    <div class="container" ng-controller="StudentCtrl" ng-init="loadJSON()">
+      <h2>Horas Estudiante</h2>
       <div class="row">
         <div class="col-sm-6">
            <form class="form-horizontal" action="/action_page.php" enctype="multipart/form-data">
@@ -101,15 +101,6 @@
             </form>
         </div>
         <div class="col-sm-6">
-          <form class="form-horizontal" action="/action_page.php">
-           <h1>Horas Semanales de Preferencia</h1>
-            <div class="form-group">
-              <div class="checkbox">
-                <label class="checkbox-inline"><input type="checkbox" id="10h">10 Horas</label>
-                <label class="checkbox-inline"><input type="checkbox" id="20h">20 Horas</label>
-              </div>
-            </div>
-          </form>
           <form class="form-horizontal" action="/action_page.php">
             <h1>Información Bancaria</h1>
             <br>

@@ -1,12 +1,13 @@
-    <div class="container" ng-controller="StudentCtrl">
-      <h2>Asistencia Especial</h2>
+    <div class="container" ng-controller="StudentCtrl" ng-init="loadJSON()">
+      <h2>Horas Asistente</h2>
+      {{data.ID}}
       <div class="row">
         <div class="col-sm-6">
            <form class="form-horizontal" action="/action_page.php" enctype="multipart/form-data">
               <h1>Datos Generales</h1>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Nombre:</label>
-                <input type="text" class="form-control" id="email" name="email" ng-model="nombre" />
+                <input type="text" class="form-control" id="email" name="email" ng-model="nombre"/>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Primer Apellido:</label>
@@ -102,12 +103,35 @@
         </div>
         <div class="col-sm-6">
           <form class="form-horizontal" action="/action_page.php">
-           <h1>Horas Semanales de Preferencia</h1>
+            <h1>Información del Curso a Asistir</h1>
             <div class="form-group">
-              <div class="checkbox">
-                <label class="checkbox-inline"><input type="checkbox" id="10h">10 Horas</label>
-                <label class="checkbox-inline"><input type="checkbox" id="20h">20 Horas</label>
-              </div>
+              <label class="control-label col-sm-3" for="email">Curso a Asistir:</label>
+              <label class="dataContainer">
+                <select class="custom-select custom-select2" id="curso">
+                  <option value="" disabled selected>Seleccione un Curso</option>
+                  <option ng-repeat="prof in profesores" value="{{prof.ID}}">{{prof.Nombre}}</option>
+                </select>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="email">Nota Obtenida en el Curso:</label>
+              <label class="dataContainer">
+                  <input type="number" class="form-control" id="email" ng-model="notaCurso" />
+                  <label for="email"></label>
+                    <label class="fileContainer">
+                        Adjuntar Imagen
+                        <input type="file" id="imgNotaCurso" />
+                    </label>
+                </label>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="email">Profesor a Asistir:</label>
+              <label class="dataContainer">
+                <select class="custom-select custom-select2" id="profesor">
+                  <option value="" disabled selected>Seleccione un Profesor</option>
+                  <option ng-repeat="prof in profesores" value="{{prof.ID}}">{{prof.Nombre}}</option>
+                </select>
+              </label>
             </div>
           </form>
           <form class="form-horizontal" action="/action_page.php">
@@ -150,11 +174,17 @@
       </div>
       <br>
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <button type="button" class="btn" ng-click="enviarHA()">Enviar</button>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
           <button type="button" class="btn" ng-click="guardarHA()">Guardar</button>
         </div>
+        <div class="col-sm-3">
+            <button type="button" class="btn" ng-click="guardarHA()">Borrar</button>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" class="btn" ng-click="atras()">Atrás</button>
+          </div>
       </div>
   </div>
