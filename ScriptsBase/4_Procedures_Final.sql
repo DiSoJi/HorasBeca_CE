@@ -1396,7 +1396,7 @@ estado = i.estado
 FROM (
     SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado
 	FROM  @solicitudWrapper) i
-WHERE solicitud_general.id_sol_general = @ID_SOL_GEN
+WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
 
 
 UPDATE solicitud_especial
@@ -1405,7 +1405,7 @@ SET horas_solicitadas = j.horas
 FROM (
     SELECT horas
 	FROM  @solicitudWrapper) j
-WHERE solicitud_especial.id_sol_gen = @ID_SOL_GEN	
+WHERE solicitud_especial.id_sol_general = @ID_SOL_GEN	
 
 
     COMMIT TRANSACTION;
