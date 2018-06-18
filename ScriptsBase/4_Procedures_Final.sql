@@ -933,10 +933,10 @@ WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
 
 
 UPDATE solicitud_tutoria
-SET id_curso = j.idCurso
-horas = j.horas
-id_prof_asistir = j.idProfesor
-nota_curso_tut = j.notaCurso
+SET id_curso = j.idCurso,
+horas = j.horas,
+id_prof_asistir = j.idProfesor,
+nota_curso_tut = j.notaCurso,
 nota_curso_tut_img = j.imgNotaCurso
 
 
@@ -1004,10 +1004,10 @@ WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
 
 
 UPDATE solicitud_tutoria
-SET id_curso = j.idCurso
-horas = j.horas
-id_prof_asistir = j.idProfesor
-nota_curso_tut = j.notaCurso
+SET id_curso = j.idCurso,
+horas = j.horas,
+id_prof_asistir = j.idProfesor,
+nota_curso_tut = j.notaCurso,
 nota_curso_tut_img = j.imgNotaCurso
 
 
@@ -1028,7 +1028,7 @@ END CATCH;
 END
 GO
 
-*/----------------------------------------------------------------*/
+/*----------------------------------------------------------------*/
 CREATE PROCEDURE Update_Sol_Horas_Estudiante_UDP_1
 	-- Add the parameters for the stored procedure here
 	@solicitudWrapper SolicitudWrapper READONLY,
@@ -1155,7 +1155,7 @@ END CATCH;
 END
 GO
 
-*/----------------------------------------------------------------*/
+/*----------------------------------------------------------------*/
 CREATE PROCEDURE Update_Sol_Horas_Asistente_UDP_1
 	-- Add the parameters for the stored procedure here
 	@solicitudWrapper SolicitudWrapper READONLY,
@@ -1197,10 +1197,10 @@ WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
 
 
 UPDATE solicitud_asistente
-SET id_curso = j.idCurso
-horas = j.horas
-id_prof_asistir = j.idProfesor
-nota_curso_asist = j.notaCurso
+SET id_curso = j.idCurso,
+horas = j.horas,
+id_prof_asistir = j.idProfesor,
+nota_curso_asist = j.notaCurso,
 nota_curso_asist_img = j.imgNotaCurso
 
 
@@ -1268,10 +1268,10 @@ WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
 
 
 UPDATE solicitud_asistente
-SET id_curso = j.idCurso
-horas = j.horas
-id_prof_asistir = j.idProfesor
-nota_curso_asist = j.notaCurso
+SET id_curso = j.idCurso,
+horas = j.horas,
+id_prof_asistir = j.idProfesor,
+nota_curso_asist = j.notaCurso,
 nota_curso_asist_img = j.imgNotaCurso
 
 
