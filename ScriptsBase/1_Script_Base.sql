@@ -165,6 +165,7 @@ CREATE TABLE control_estudiante(
 	id_control int IDENTITY(1,1) PRIMARY KEY,
 	id_estudiante varchar(11) not null,
 	id_profesor int not null,
+	id_asistencia int null,
 	comentario varchar(max) null,
 	horas_cumplidas float null,
 	activo bit not null
@@ -175,6 +176,10 @@ CREATE TABLE config(
 	id_periodo int IDENTITY(1,1) PRIMARY KEY,
 	fecha_apertura datetime not null,
 	fecha_cierre datetime not null,
+	fecha_envio datetime not null,
+	num_max_horas int not null,
+	fecha_inicio_eval datetime not null,
+	fecha_cierre_eval datetime not null,
 	activo bit not null
 );
 
@@ -197,6 +202,7 @@ CREATE TABLE comentario_solicitud(
 
 ALTER TABLE control_estudiante ADD CONSTRAINT ContEst_x_Estudiante FOREIGN KEY (id_estudiante ) REFERENCES estudiantes(carne);
 ALTER TABLE control_estudiante ADD CONSTRAINT ContEst_x_Usuario FOREIGN KEY (id_profesor ) REFERENCES usuario(id);
+ALTER TABLE control_estudiante ADD CONSTRAINT ContEst_x_Asistencia FOREIGN KEY (id_asistencia) REFERENCES solicitud_general(id_sol_gen);
 
 ALTER TABLE curso ADD CONSTRAINT codigo_curso PRIMARY KEY (codigo_curso);
 

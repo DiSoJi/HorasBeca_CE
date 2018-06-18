@@ -222,7 +222,7 @@ BEGIN TRY
 	set @sol_gen_ID = SCOPE_IDENTITY()
 
 	INSERT INTO solicitud_tutoria( id_estudiante, id_sol_general,id_curso, horas, nota_curso_tut, id_prof_asistir,nota_curso_tut_img, activo )
-	SELECT carne, @sol_gen_ID, idCurso,  horas,notaCurso, idProfesor,imgNotaCurso, 1
+	SELECT carne, @sol_gen_ID, idCurso,  horas,notaCurso, '2',imgNotaCurso, 1
 	FROM @solicitudWrapper
 
 	INSERT INTO otras_asistencias(id_estudiante, id_sol_gen, horas, descripcion,activo)
@@ -271,7 +271,7 @@ BEGIN TRY
 	set @sol_gen_ID = SCOPE_IDENTITY()
 
 	INSERT INTO solicitud_tutoria( id_estudiante, id_sol_general,id_curso, horas, nota_curso_tut, id_prof_asistir,nota_curso_tut_img, activo )
-	SELECT carne, @sol_gen_ID, idCurso,  horas,notaCurso, idProfesor,imgNotaCurso, 1
+	SELECT carne, @sol_gen_ID, idCurso,  horas,notaCurso, '2',imgNotaCurso, 1
 	FROM @solicitudWrapper
 
     COMMIT TRANSACTION;
@@ -795,7 +795,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT config.fecha_apertura,config.fecha_cierre
+SELECT fecha_apertura,fecha_cierre,fecha_envio,num_max_horas,fecha_inicio_eval,fecha_cierre_eval
 FROM config
 WHERE config.activo = '1'
 
@@ -812,6 +812,32 @@ END CATCH;
 END
 GO
 
+CREATE PROCEDURE Insert_Periodo_Activo_UDP
+@Fecha_inicio datetime,
+@Fecha_cierre datetime,
+@Fecha_envio datetime,
+@Num_max_horas int,
+@Fecha_inicio_EVAL datetime,
+@Fecha_cierre_EVAL datetime
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+INSERT INTO config(fecha_apertura,fecha_cierre,fecha_envio,num_max_horas,fecha_inicio_eval,fecha_cierre_eval,activo) values (@Fecha_inicio,@Fecha_cierre,@Fecha_envio, @Num_max_horas, @Fecha_inicio_EVAL, @Fecha_cierre_EVAL,'1')
+
+
+COMMIT TRANSACTION;
+END TRY
+
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+END
+GO
 /*--------------------------------------------------Update Solicitud-----------------------------------------------------------------*/
 
 CREATE PROCEDURE Update_Estado_Solicitud_UDP
@@ -1457,6 +1483,87 @@ BEGIN TRY
 SELECT codigo_curso, nombre_curso
 FROM curso
 where curso.activo = '1'
+
+FOR JSON PATH; 
+
+COMMIT TRANSACTION;
+END TRY
+
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+END
+GO
+
+CREATE PROCEDURE Select_Carreras_UDP
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+SELECT id_carrera, nombre
+FROM carrera
+where carrera.activo = '1'
+
+FOR JSON PATH; 
+
+COMMIT TRANSACTION;
+END TRY
+
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+END
+GO
+/*-------------------------------------------------------------------------*/
+
+CREATE PROCEDURE Insert_Control_Estudiante_UDP
+@ID_Estudiante varchar(11),
+@ID_Profesor int,
+@ID_Asistencia int,
+@Comentario varchar(max),
+@Horas int
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+INSERT INTO control_estudiante(id_estudiante,id_profesor,id_asistencia, comentario, horas_cumplidas, activo) VALUES (@ID_Asistencia,@ID_Profesor,@ID_Asistencia,@Comentario,@Horas,'1')
+
+
+COMMIT TRANSACTION;
+END TRY
+
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+END
+GO
+
+/*-------------------------------------------------------------------------------------*/
+
+CREATE PROCEDURE Select_Estudiantes_x_Responsable_UDP
+@ID_Responsable int
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+
+SELECT id_estudiante
+FROM control_estudiante
+where activo = '1' AND control_estudiante.id_profesor = @ID_Responsable
 
 FOR JSON PATH; 
 

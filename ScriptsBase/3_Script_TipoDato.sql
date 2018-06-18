@@ -41,3 +41,12 @@ CREATE TYPE [dbo].[OtrasAsistenciasWrapper] AS TABLE (
 			descripcion varchar(max)
 )
 GO
+
+CREATE TYPE [dbo].[AsistenciasResponsableWrapper] AS TABLE (
+			/*contador int null,*/
+			/*id_estudiante varchar(11) null,*/
+			ID_sol_gen int null,
+			ID_estudiante int null,
+			Nombre_asistencia varchar(max)
+)
+GO
