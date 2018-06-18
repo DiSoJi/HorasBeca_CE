@@ -1,0 +1,20 @@
+<style type="text/css">
+	.custom-select {
+          position: relative;
+          font-family: Arial;
+          margin: auto;
+          display: block;
+          cursor: pointer;
+          width: 30%;
+        }
+
+</style>
+
+<div class="container" ng-controller="AdminCtrl">
+	<select class="custom-select">
+      <option value="saab"></option>
+      <option value="volvo" ng-click="trabajoSocial()">Reporte para Trabajo Social</option>
+      <option value="audi" ng-click="becasTEC()">Reporte para el Sistema de Becas del TEC</option>
+    </select>
+
+  </div>

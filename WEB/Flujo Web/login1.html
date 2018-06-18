@@ -1,0 +1,25 @@
+  <div class="container" ng-controller="LogCtrl">
+  	<form class="form-horizontal" action="/action_page.php">
+  		<h2>Iniciar Sesión</h2>
+  		<div class="form-group">
+		    <label for="uname" class="control-label" id="email"><h1>Correo Electrónico</h1></label>
+		    <input type="email" class="form-control" ng-model="email" id="email" placeholder="ejemplo@gmail.com">
+		</div>
+
+		<div class="form-group">
+		    <label for="psw"><h1 id="pass">Contraseña</h1></label>
+		    <input type="text" class="form-control" ng-model="id" id="email">
+	    </div>
+	    <div class="form-group">
+		    <div class="radio">
+			  <label><input type="radio" name="optradio" id="est" checked="true">Estudiante</label>
+			</div>
+			<div class="radio">
+			  <label><input type="radio" name="optradio" id="otro">Personal</label>
+			</div>
+	    </div>
+	</form>
+	<br>
+
+    <button type="button" class="btn" ng-click="ingreso()">Login</button>
+  </div>

@@ -1,0 +1,62 @@
+   <style>
+        th {
+          
+            text-align: center;
+            color: #ffffff;
+            background: #22629f;
+            
+        }
+
+         td {
+            background: #A9C6EE;
+            text-align: center;
+          }
+
+          table tr:not(:first-child){
+                cursor: pointer;transition: all .25s ease-in-out;
+            }
+        table tr:not(:first-child):hover{opacity: 0.8;}  
+    </style>
+
+
+    <div class="container">
+        <h2>Datos Adjuntos</h2>
+          <br>
+          <div class="row">
+              <table id="table" class="table">
+                    <tr>
+                        <th>Carné</th>
+                        <td>2015093739</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Imagen Asociada</th>
+                        <td><img src="Carne.jpg" alt="Carné" width="1000" height="700"></td>
+                    </tr> 
+                </table>
+                <table id="table" class="table">
+                    <tr>
+                        <th>Promedio Ponderado General</th>
+                        <td>70.91</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Imagen Asociada</th>
+                        <td><img src="Ponderado.png" alt="Ponderado" width="1000" height="700"></td>
+                    </tr> 
+                </table>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-4">
+                  <button class="btn btn1" type="button" ng-click="aceptar()">Aceptar</button>
+                </div>
+                <div class="col-sm-4">
+                  <button class="btn btn2" type="button" ng-click="denegar()">Denegar</button>
+                </div>
+                <div class="col-sm-4">
+                  <button class="btn" type="button" ng-click="atrasReq()">Atrás</button>
+                </div>
+              </div>
+    
+    </div>

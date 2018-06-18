@@ -1,0 +1,39 @@
+   <style>
+        th {
+          
+            text-align: center;
+            color: #ffffff;
+            background: #22629f;
+            
+        }
+
+         td {
+            background: #A9C6EE;
+            text-align: center;
+          }
+
+          table tr:not(:first-child){
+                cursor: pointer;transition: all .25s ease-in-out;
+            }
+        table tr:not(:first-child):hover{opacity: 0.8;}
+        
+        
+    </style>
+
+<div class="container" ng-controller="StudentCtrl" ng-init="loadHist()">
+    <h2>Historial de Solicitudes de Horas Estudiante</h2>
+    <br>
+    <div class="row">
+      <table id="table" class="table">
+            <tr>
+                <th ng-repeat="(header, value) in solicitudes[0]">{{header}}</th>
+            </tr>
+            
+            <tr ng-repeat="row in solicitudes | filter:searchText">
+                <td ng-repeat="cell in row" ng-click="selectRow()">{{cell}}</td>
+
+            </tr>
+        </table>
+      
+    </div>
+  </div>
