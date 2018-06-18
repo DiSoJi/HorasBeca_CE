@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorasBeca.Configuracion.api", "WebApplication1\HorasBeca.Configuracion.api.csproj", "{EB25833F-E3F7-4722-89B7-3B84B5EB61F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorasBeca.Configuracion.api.Tests", "HorasBeca.Configuracion.api.Tests\HorasBeca.Configuracion.api.Tests.csproj", "{6F8C376E-E7A0-4465-9AF2-4AF7E4086035}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB25833F-E3F7-4722-89B7-3B84B5EB61F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB25833F-E3F7-4722-89B7-3B84B5EB61F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB25833F-E3F7-4722-89B7-3B84B5EB61F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB25833F-E3F7-4722-89B7-3B84B5EB61F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F8C376E-E7A0-4465-9AF2-4AF7E4086035}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F8C376E-E7A0-4465-9AF2-4AF7E4086035}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F8C376E-E7A0-4465-9AF2-4AF7E4086035}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F8C376E-E7A0-4465-9AF2-4AF7E4086035}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {246C41D8-2985-4E70-86D0-29D0B7D5DB5C}
+	EndGlobalSection
+EndGlobal
