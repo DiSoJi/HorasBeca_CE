@@ -23,3 +23,37 @@ INSERT INTO carrera(nombre,activo) VALUES('CE','1');
 INSERT INTO carrera(nombre,activo) VALUES('IC','1');
 INSERT INTO carrera(nombre,activo) VALUES('IE','1');
 INSERT INTO carrera(nombre,activo) VALUES('ATI','1');
+
+INSERT INTO [dbo].[estudiantes]
+([carne]
+,[correo_electronico]
+,[primer_nombre]
+,[segundo_nombre]
+,[primer_apellido]
+,[segundo_apellido])
+VALUES
+('2015019679'
+,'carva97valvi@gmail.com'
+,'Efren'
+,'Fabian'
+,'Carvajal'
+,'Valverde')
+GO
+
+INSERT INTO [dbo].[usuario]
+([cedula]
+,[correo_electronico]
+,[contrasenna]
+,[primer_nombre]
+,[segundo_nombre]
+,[primer_apellido]
+,[segundo_apellido])
+VALUES
+('116740214'
+,'carva97valvi@gmail.com'
+,'12345'
+,'Efren'
+,'Fabian'
+,'Carvajal'
+,'Valverde')
+GO

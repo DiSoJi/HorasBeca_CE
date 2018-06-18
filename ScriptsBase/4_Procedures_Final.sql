@@ -892,6 +892,405 @@ END
 GO
 /*-------------------------------------------------------------------------------------------------------------------*/
 
+CREATE PROCEDURE Update_Sol_Horas_Tutoria_UDP_1
+	-- Add the parameters for the stored procedure here
+	@solicitudWrapper SolicitudWrapper READONLY,
+	@AsistenciasWrapper OtrasAsistenciasWrapper READONLY,
+	@ID_SOL_GEN int,
+	@ID_OTRAS_ASISTENCIAS int
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+UPDATE solicitud_general
+SET cedula_est = i.cedula,
+id_carrera = i.carrera, 
+prom_pond_gen = i.proPonGeneral, 
+prom_pond_sem = i.proPonSemestral,
+creds_gen = i.creditosGeneral, 
+creds_sem = i.creditosSemestre,
+cuenta_banco = i.cuentaBanco, 
+banco = i.banco, 
+fecha_solicitud = i.fecha, 
+prom_pond_gen_img = i.imgPpg, 
+prom_pond_sem_img = i.imgPps,
+creds_gen_img = i.imgCg, 
+creds_sem_img = i.imgCs, 
+cuenta_banco_img = i.imgCBanco, 
+cedula_img = i.imgCed,
+carne_img = i.imgCar,
+anios_TEC = i.anosTEC,
+telefono = i.telefono, 
+estado = i.estado
+
+FROM (
+    SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado
+	FROM  @solicitudWrapper) i
+WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
+
+
+UPDATE solicitud_tutoria
+SET id_curso = j.idCurso
+horas = j.horas
+id_prof_asistir = j.idProfesor
+nota_curso_tut = j.notaCurso
+nota_curso_tut_img = j.imgNotaCurso
+
+
+FROM (
+    SELECT idcurso, horas, idProfesor, notaCurso,imgnotaCurso
+	FROM  @solicitudWrapper) j
+WHERE solicitud_tutoria.id_sol_general = @ID_SOL_GEN	
+
+update otras_asistencias
+SET horas = k.horas,
+	descripcion = k.descripcion
+	
+FROM(
+    SELECT horas,descripcion	
+	FROM  @AsistenciasWrapper) K
+WHERE 	otras_asistencias.id_otras_asistencia = @ID_OTRAS_ASISTENCIAS	
+    
+	COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+
+END
+GO
+
+CREATE PROCEDURE Update_Sol_Horas_Tutoria_UDP_2
+	-- Add the parameters for the stored procedure here
+	@solicitudWrapper SolicitudWrapper READONLY,
+	@ID_SOL_GEN int
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+UPDATE solicitud_general
+SET cedula_est = i.cedula,
+id_carrera = i.carrera, 
+prom_pond_gen = i.proPonGeneral, 
+prom_pond_sem = i.proPonSemestral,
+creds_gen = i.creditosGeneral, 
+creds_sem = i.creditosSemestre,
+cuenta_banco = i.cuentaBanco, 
+banco = i.banco, 
+fecha_solicitud = i.fecha, 
+prom_pond_gen_img = i.imgPpg, 
+prom_pond_sem_img = i.imgPps,
+creds_gen_img = i.imgCg, 
+creds_sem_img = i.imgCs, 
+cuenta_banco_img = i.imgCBanco, 
+cedula_img = i.imgCed,
+carne_img = i.imgCar,
+anios_TEC = i.anosTEC,
+telefono = i.telefono, 
+estado = i.estado
+
+FROM (
+    SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado
+	FROM  @solicitudWrapper) i
+WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
+
+
+UPDATE solicitud_tutoria
+SET id_curso = j.idCurso
+horas = j.horas
+id_prof_asistir = j.idProfesor
+nota_curso_tut = j.notaCurso
+nota_curso_tut_img = j.imgNotaCurso
+
+
+FROM (
+    SELECT idcurso, horas, idProfesor, notaCurso,imgnotaCurso
+	FROM  @solicitudWrapper) j
+WHERE solicitud_tutoria.id_sol_general = @ID_SOL_GEN	
+
+
+	COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+
+END
+GO
+
+*/----------------------------------------------------------------*/
+CREATE PROCEDURE Update_Sol_Horas_Estudiante_UDP_1
+	-- Add the parameters for the stored procedure here
+	@solicitudWrapper SolicitudWrapper READONLY,
+	@AsistenciasWrapper OtrasAsistenciasWrapper READONLY,
+	@ID_SOL_GEN int,
+	@ID_OTRAS_ASISTENCIAS int
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+UPDATE solicitud_general
+SET cedula_est = i.cedula,
+id_carrera = i.carrera, 
+prom_pond_gen = i.proPonGeneral, 
+prom_pond_sem = i.proPonSemestral,
+creds_gen = i.creditosGeneral, 
+creds_sem = i.creditosSemestre,
+cuenta_banco = i.cuentaBanco, 
+banco = i.banco, 
+fecha_solicitud = i.fecha, 
+prom_pond_gen_img = i.imgPpg, 
+prom_pond_sem_img = i.imgPps,
+creds_gen_img = i.imgCg, 
+creds_sem_img = i.imgCs, 
+cuenta_banco_img = i.imgCBanco, 
+cedula_img = i.imgCed,
+carne_img = i.imgCar,
+anios_TEC = i.anosTEC,
+telefono = i.telefono, 
+estado = i.estado
+
+FROM (
+    SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado
+	FROM  @solicitudWrapper) i
+WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
+
+
+UPDATE solicitud_estudiante
+SET horas = j.horas
+
+FROM (
+    SELECT horas
+	FROM  @solicitudWrapper) j
+WHERE solicitud_estudiante.id_sol_general = @ID_SOL_GEN	
+
+update otras_asistencias
+SET horas = k.horas,
+	descripcion = k.descripcion
+	
+FROM(
+    SELECT horas,descripcion	
+	FROM  @AsistenciasWrapper) K
+WHERE 	otras_asistencias.id_otras_asistencia = @ID_OTRAS_ASISTENCIAS	
+    
+	COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+
+END
+GO
+
+CREATE PROCEDURE Update_Sol_Horas_Estudiante_UDP_2
+	-- Add the parameters for the stored procedure here
+	@solicitudWrapper SolicitudWrapper READONLY,
+	@ID_SOL_GEN int
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+UPDATE solicitud_general
+SET cedula_est = i.cedula,
+id_carrera = i.carrera, 
+prom_pond_gen = i.proPonGeneral, 
+prom_pond_sem = i.proPonSemestral,
+creds_gen = i.creditosGeneral, 
+creds_sem = i.creditosSemestre,
+cuenta_banco = i.cuentaBanco, 
+banco = i.banco, 
+fecha_solicitud = i.fecha, 
+prom_pond_gen_img = i.imgPpg, 
+prom_pond_sem_img = i.imgPps,
+creds_gen_img = i.imgCg, 
+creds_sem_img = i.imgCs, 
+cuenta_banco_img = i.imgCBanco, 
+cedula_img = i.imgCed,
+carne_img = i.imgCar,
+anios_TEC = i.anosTEC,
+telefono = i.telefono, 
+estado = i.estado
+
+FROM (
+    SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado
+	FROM  @solicitudWrapper) i
+WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
+
+
+UPDATE solicitud_estudiante
+SET horas = j.horas
+
+FROM (
+    SELECT horas
+	FROM  @solicitudWrapper) j
+WHERE solicitud_estudiante.id_sol_general = @ID_SOL_GEN	
+
+    
+	COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+
+END
+GO
+
+*/----------------------------------------------------------------*/
+CREATE PROCEDURE Update_Sol_Horas_Asistente_UDP_1
+	-- Add the parameters for the stored procedure here
+	@solicitudWrapper SolicitudWrapper READONLY,
+	@AsistenciasWrapper OtrasAsistenciasWrapper READONLY,
+	@ID_SOL_GEN int,
+	@ID_OTRAS_ASISTENCIAS int
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+UPDATE solicitud_general
+SET cedula_est = i.cedula,
+id_carrera = i.carrera, 
+prom_pond_gen = i.proPonGeneral, 
+prom_pond_sem = i.proPonSemestral,
+creds_gen = i.creditosGeneral, 
+creds_sem = i.creditosSemestre,
+cuenta_banco = i.cuentaBanco, 
+banco = i.banco, 
+fecha_solicitud = i.fecha, 
+prom_pond_gen_img = i.imgPpg, 
+prom_pond_sem_img = i.imgPps,
+creds_gen_img = i.imgCg, 
+creds_sem_img = i.imgCs, 
+cuenta_banco_img = i.imgCBanco, 
+cedula_img = i.imgCed,
+carne_img = i.imgCar,
+anios_TEC = i.anosTEC,
+telefono = i.telefono, 
+estado = i.estado
+
+FROM (
+    SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado
+	FROM  @solicitudWrapper) i
+WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
+
+
+UPDATE solicitud_asistente
+SET id_curso = j.idCurso
+horas = j.horas
+id_prof_asistir = j.idProfesor
+nota_curso_asist = j.notaCurso
+nota_curso_asist_img = j.imgNotaCurso
+
+
+FROM (
+    SELECT idCurso, horas, idProfesor, notaCurso,imgNotaCurso
+	FROM  @solicitudWrapper) j
+WHERE solicitud_asistente.id_sol_general = @ID_SOL_GEN	
+
+update otras_asistencias
+SET horas = k.horas,
+	descripcion = k.descripcion
+	
+FROM(
+    SELECT horas,descripcion	
+	FROM  @AsistenciasWrapper) K
+WHERE 	otras_asistencias.id_otras_asistencia = @ID_OTRAS_ASISTENCIAS	
+    
+	COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+
+END
+GO
+
+CREATE PROCEDURE Update_Sol_Horas_Asistente_UDP_2
+	-- Add the parameters for the stored procedure here
+	@solicitudWrapper SolicitudWrapper READONLY,
+	@ID_SOL_GEN int
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+UPDATE solicitud_general
+SET cedula_est = i.cedula,
+id_carrera = i.carrera, 
+prom_pond_gen = i.proPonGeneral, 
+prom_pond_sem = i.proPonSemestral,
+creds_gen = i.creditosGeneral, 
+creds_sem = i.creditosSemestre,
+cuenta_banco = i.cuentaBanco, 
+banco = i.banco, 
+fecha_solicitud = i.fecha, 
+prom_pond_gen_img = i.imgPpg, 
+prom_pond_sem_img = i.imgPps,
+creds_gen_img = i.imgCg, 
+creds_sem_img = i.imgCs, 
+cuenta_banco_img = i.imgCBanco, 
+cedula_img = i.imgCed,
+carne_img = i.imgCar,
+anios_TEC = i.anosTEC,
+telefono = i.telefono, 
+estado = i.estado
+
+FROM (
+    SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado
+	FROM  @solicitudWrapper) i
+WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
+
+
+UPDATE solicitud_asistente
+SET id_curso = j.idCurso
+horas = j.horas
+id_prof_asistir = j.idProfesor
+nota_curso_asist = j.notaCurso
+nota_curso_asist_img = j.imgNotaCurso
+
+
+FROM (
+    SELECT idCurso, horas, idProfesor, notaCurso,imgNotaCurso
+	FROM  @solicitudWrapper) j
+WHERE solicitud_asistente.id_sol_general = @ID_SOL_GEN	
+
+	COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+
+END
+GO
+
 CREATE PROCEDURE Update_Sol_Horas_Especial_UDP_1
 	-- Add the parameters for the stored procedure here
 	@solicitudWrapper SolicitudWrapper READONLY,
@@ -962,6 +1361,63 @@ END
 GO
 
 
+CREATE PROCEDURE Update_Sol_Horas_Especial_UDP_2
+	-- Add the parameters for the stored procedure here
+	@solicitudWrapper SolicitudWrapper READONLY,
+	@ID_SOL_GEN int
+	
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+UPDATE solicitud_general
+SET cedula_est = i.cedula,
+id_carrera = i.carrera, 
+prom_pond_gen = i.proPonGeneral, 
+prom_pond_sem = i.proPonSemestral,
+creds_gen = i.creditosGeneral, 
+creds_sem = i.creditosSemestre,
+cuenta_banco = i.cuentaBanco, 
+banco = i.banco, 
+fecha_solicitud = i.fecha, 
+prom_pond_gen_img = i.imgPpg, 
+prom_pond_sem_img = i.imgPps,
+creds_gen_img = i.imgCg, 
+creds_sem_img = i.imgCs, 
+cuenta_banco_img = i.imgCBanco, 
+cedula_img = i.imgCed,
+carne_img = i.imgCar,
+anios_TEC = i.anosTEC,
+telefono = i.telefono, 
+estado = i.estado
+
+FROM (
+    SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado
+	FROM  @solicitudWrapper) i
+WHERE solicitud_general.id_sol_general = @ID_SOL_GEN
+
+
+UPDATE solicitud_especial
+SET horas_solicitadas = j.horas
+
+FROM (
+    SELECT horas
+	FROM  @solicitudWrapper) j
+WHERE solicitud_especial.id_sol_gen = @ID_SOL_GEN	
+
+
+    COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+
+END
+GO
 
 /*--------------------------------------------------------------------------------------*/
 
