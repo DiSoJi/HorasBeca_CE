@@ -7,11 +7,11 @@
         <div class="col-sm-6">
         	<br><br><br>
         	<form class="form-horizontal" action="/action_page.php">
-                <h1>Nombre: Kevin Acuña Mena</h1>
+                <h1>Nombre: {{perfil.primer_nombre}} {{perfil.segundo_nombre}} {{perfil.primer_apellido}} {{perfil.segundo_apellido}}</h1>
 				<br>
-			    <h1>Carné: 2015093739</h1>
+			    <h1>Carné: {{perfil.carne}}</h1>
 			    <br>
-			    <h1>Correo: kevin.gam18@gmail.com</h1>
+			    <h1>Correo: {{perfil.correo_electronico}}</h1>
     		</form>
         </div>
       </div>

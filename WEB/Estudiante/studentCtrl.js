@@ -104,6 +104,19 @@ var app = angular.module("computer", ["ngRoute"])
 	}])
 
 .controller("StudentCtrl",["$scope", "$http",function($scope, $http, $location, MyService){
+	$scope.perfil = localStorage.perfil;
+	  for(i in $scope.perfil){
+	        $scope.perfil = $scope.perfil.replace("%7B","{");
+	    $scope.perfil = $scope.perfil.replace("%22","\"");
+	    $scope.perfil = $scope.perfil.replace("%7D","}");
+	    };          
+	    $scope.perfil = JSON.parse($scope.perfil);
+	    console.log($scope.perfil);
+	$scope.nombre = $scope.perfil.primer_nombre + " " + $scope.perfil.segundo_nombre;
+	$scope.primerApellido = $scope.perfil.primer_apellido;
+	$scope.segundoApellido = $scope.perfil.segundo_apellido;
+	$scope.carne = parseInt($scope.perfil.carne);
+	$scope.correo = $scope.perfil.correo_electronico;
 	$scope.res = {};
 	$scope.tabla = {};
 	$scope.horasAE = 0;
@@ -115,7 +128,8 @@ var app = angular.module("computer", ["ngRoute"])
 	$scope.strCg = "";
 	$scope.strNota = "";
 	$scope.strCuenta = "";
-	$scope.profesores = [{Nombre:"Marco", ID:1},{Nombre:"Isaac", ID:2},{Nombre:"Diego", ID:3}];
+	$scope.profesores = [{Nombre:"Marco", ID:1},{Nombre:"Isaac", ID:1},{Nombre:"Diego", ID:1}];
+	$scope.cursos = [{Nombre:"Marco", ID:"CE4101"},{Nombre:"Isaac", ID:"CE4101"},{Nombre:"Diego", ID:"CE4101"}];
 	$scope.departamentos = [];
 	$scope.horasDepartamento = [];
 	$scope.valid = true;
@@ -134,28 +148,28 @@ var app = angular.module("computer", ["ngRoute"])
 
 	function asignarImg(img,scp) {
 		if(scp==0){
-			$scope.strCarne = img;
+			$scope.strCarne = btoa(img);
 		}
 		if(scp==1){
-			$scope.strCedula = img;
+			$scope.strCedula = btoa(img);
 		}
 		if(scp==2){
-			$scope.strPps = img;
+			$scope.strPps = btoa(img);
 		}
 		if(scp==3){
-			$scope.strPpg = img;
+			$scope.strPpg = btoa(img);
 		}
 		if(scp==4){
-			$scope.strCs = img;
+			$scope.strCs = btoa(img);
 		}
 		if(scp==5){
-			$scope.strCg = img;
+			$scope.strCg = btoa(img);
 		}
 		if(scp==6){
-			$scope.strNota = img;
+			$scope.strNota = btoa(img);
 		}
 		if(scp==7){
-			$scope.strCuenta = img;
+			$scope.strCuenta = btoa(img);
 		}
 	};
 
@@ -178,9 +192,6 @@ var app = angular.module("computer", ["ngRoute"])
 		}
 		if($scope.strCg==""){
 			alert("Debe adjuntar una imagen para créditos aprobados");
-		}
-		if($scope.strNota==""){
-			alert("Debe adjuntar una imagen para nota del obtenida en el curso");
 		}
 		if($scope.strCuenta==""){
 			alert("Debe adjuntar una imagen para cuenta del banco");
@@ -289,15 +300,21 @@ var app = angular.module("computer", ["ngRoute"])
 	        imgToBase64(fileCs,4);
 	        var fileCg = document.getElementById('imgCg').files[0];
 	        imgToBase64(fileCg,5);
-	        var fileNota = document.getElementById('imgNotaCurso').files[0];
-	        imgToBase64(fileNota,6);
 	        var fileCuenta = document.getElementById('imgCuenta').files[0];
 	        imgToBase64(fileCuenta,7);
 	        var Data = {};
+	        if(document.getElementById("10h").checked){
+	        	$scope.horasAE = $scope.horasAE + 10;
+	        }
+	        if(document.getElementById("20h").checked){
+	        	$scope.horasAE = $scope.horasAE + 10;
+	        }
 	        setTimeout(function(){
 	        		if(errorImg()){
 	        			var localTime = new Date();
-		        		Data = {"cedula":$scope.cedula,
+		        		Data = {"tipoSolicitud": "AE",
+							"carrera":1,
+		        			"cedula":$scope.cedula,
 							"proPonGeneral":$scope.ppg,
 							"proPonSemestral":$scope.pps,
 							"creditosGeneral":$scope.cg,
@@ -305,7 +322,7 @@ var app = angular.module("computer", ["ngRoute"])
 							"cuentaBanco":$scope.bn,
 							"banco":bank,
 							"carne":$scope.carne,
-							"horas":0,
+							"horas":$scope.horasAE,
 							"imgPpg":$scope.strPpg,
 							"imgPps":$scope.strPps,
 							"imgCg":$scope.strCg,
@@ -313,23 +330,23 @@ var app = angular.module("computer", ["ngRoute"])
 							"imgCBanco":$scope.strCuenta,
 							"imgCed":$scope.strCedula,
 							"imgCar":$scope.strCarne,
-							"idCurso":parseInt(document.getElementById('curso').value),
-							"idProfesor":parseInt(document.getElementById('profesor').value),
-							"notaCurso":$scope.notaCurso,
-							"imgNotaCurso":$scope.strNota,
+							"idCurso":"",
+							"idProfesor":0,
+							"notaCurso":0,
+							"imgNotaCurso":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
 							"fecha":localTime,
 							"telefono":$scope.telefono,
 							"anosTEC":$scope.anTEC,
-							"estado":0,
+							"estado":1,
 							"otrasAsistenciasDesc": $scope.departamentos,
 							"otrasAsistenciasHoras": $scope.horasDepartamento};
 							console.log(Data);
-							alert("Su solicitud ha sido enviada");
-							/*$http.post("http://192.168.100.7/api/Solicitudes?codigo=S01", Data).
+							$http.post("http://localhost:7010/api/Solicitudes?codigo=S01", Data).
 				        	then(function(response) {
 				            	$scope.res = response.data;
 				            	console.log($scope.res);
-				        	});*/
+				            	alert("Su solicitud ha sido enviada");
+				        	});
 	        		}	
 			    }, 500);
         	};
@@ -346,14 +363,21 @@ var app = angular.module("computer", ["ngRoute"])
 	        imgToBase64(fileCs,4);
 	        var fileCg = document.getElementById('imgCg').files[0];
 	        imgToBase64(fileCg,5);
-	        var fileNota = document.getElementById('imgNotaCurso').files[0];
-	        imgToBase64(fileNota,6);
 	        var fileCuenta = document.getElementById('imgCuenta').files[0];
 	        imgToBase64(fileCuenta,7);
 	        var Data = {};
+	        if(document.getElementById("10h").checked){
+	        	$scope.horasAE = $scope.horasAE + 10;
+	        }
+	        if(document.getElementById("20h").checked){
+	        	$scope.horasAE = $scope.horasAE + 10;
+	        }
 	        setTimeout(function(){
+	        		if(errorImg()){
 	        			var localTime = new Date();
-		        		Data = {"cedula":$scope.cedula,
+		        		Data = {"tipoSolicitud": "AE",
+							"carrera":1,
+		        			"cedula":$scope.cedula,
 							"proPonGeneral":$scope.ppg,
 							"proPonSemestral":$scope.pps,
 							"creditosGeneral":$scope.cg,
@@ -361,7 +385,7 @@ var app = angular.module("computer", ["ngRoute"])
 							"cuentaBanco":$scope.bn,
 							"banco":bank,
 							"carne":$scope.carne,
-							"horas":0,
+							"horas":$scope.horasAE,
 							"imgPpg":$scope.strPpg,
 							"imgPps":$scope.strPps,
 							"imgCg":$scope.strCg,
@@ -369,24 +393,24 @@ var app = angular.module("computer", ["ngRoute"])
 							"imgCBanco":$scope.strCuenta,
 							"imgCed":$scope.strCedula,
 							"imgCar":$scope.strCarne,
-							"idCurso":parseInt(document.getElementById('curso').value),
-							"idProfesor":parseInt(document.getElementById('profesor').value),
-							"notaCurso":$scope.notaCurso,
-							"imgNotaCurso":$scope.strNota,
+							"idCurso":"",
+							"idProfesor":0,
+							"notaCurso":0,
+							"imgNotaCurso":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
 							"fecha":localTime,
 							"telefono":$scope.telefono,
 							"anosTEC":$scope.anTEC,
-							"estado":0,
+							"estado":1,
 							"otrasAsistenciasDesc": $scope.departamentos,
 							"otrasAsistenciasHoras": $scope.horasDepartamento};
 							console.log(Data);
-							alert($scope.strCarne);
-							/*$http.post("http://192.168.100.7/api/Solicitudes?codigo=S01", Data).
+							$http.post("http://localhost:7010/api/Solicitudes?codigo=S01", Data).
 				        	then(function(response) {
 				            	$scope.res = response.data;
 				            	console.log($scope.res);
-				        	});*/
-	        			
+				            	alert("Su borrador ha sido guardado");
+				        	});
+	        		}	
 			    }, 500);
         	};       
         
@@ -415,39 +439,43 @@ var app = angular.module("computer", ["ngRoute"])
 	        setTimeout(function(){
 	        		if(errorImg()){
 	        			var localTime = new Date();
-		        		Data = {"cedula":$scope.cedula,
-							"proPonGeneral":$scope.ppg,
-							"proPonSemestral":$scope.pps,
-							"creditosGeneral":$scope.cg,
-							"creditosSemestre":$scope.cs,
-							"cuentaBanco":$scope.bn,
-							"banco":bank,
-							"carne":$scope.carne,
-							"horas":0,
-							"imgPpg":$scope.strPpg,
-							"imgPps":$scope.strPps,
-							"imgCg":$scope.strCg,
-							"imgCs":$scope.strCs,
-							"imgCBanco":$scope.strCuenta,
-							"imgCed":$scope.strCedula,
-							"imgCar":$scope.strCarne,
-							"idCurso":parseInt(document.getElementById('curso').value),
-							"idProfesor":parseInt(document.getElementById('profesor').value),
-							"notaCurso":$scope.notaCurso,
-							"imgNotaCurso":$scope.strNota,
-							"fecha":localTime,
-							"telefono":$scope.telefono,
-							"anosTEC":$scope.anTEC,
-							"estado":0,
-							"otrasAsistenciasDesc": $scope.departamentos,
-							"otrasAsistenciasHoras": $scope.horasDepartamento};
+		        		Data = {"tipoSolicitud": "HA",
+								"carrera":1,
+								"cedula" : $scope.cedula,
+								"proPonGeneral":$scope.ppg,
+								"proPonSemestral":$scope.pps,
+								"creditosGeneral":$scope.cg,
+								"creditosSemestre":$scope.cs,
+								"cuentaBanco":$scope.bn,
+								"banco":bank,
+								"carne":$scope.carne,
+								"horas":0,
+								"imgPpg":$scope.strPpg,
+								"imgPps":$scope.strPps,
+								"imgCg":$scope.strCg,
+								"imgCs":$scope.strCs,
+								"imgCBanco":$scope.strCuenta,
+								"imgCed":$scope.strCedula,
+								"imgCar":$scope.strCarne,
+								"idCurso":document.getElementById('curso').value,
+								"idProfesor":parseInt(document.getElementById('profesor').value),
+								"notaCurso":$scope.notaCurso,
+								"imgNotaCurso":$scope.strNota,
+								"fecha":localTime,
+								"telefono":$scope.telefono,
+								"anosTEC":$scope.anTEC,
+								"estado":1,
+								"otrasAsistenciasDesc": $scope.departamentos,
+								"otrasAsistenciasHoras":$scope.horasDepartamento
+								}
 							console.log(Data);
-							alert("Su solicitud ha sido enviada");
-							/*$http.post("http://192.168.100.7/api/Solicitudes?codigo=S01", Data).
+							
+							$http.post("http://localhost:7010/api/Solicitudes?codigo=S01", Data).
 				        	then(function(response) {
 				            	$scope.res = response.data;
 				            	console.log($scope.res);
-				        	});*/
+				            	alert("Su solicitud ha sido enviada");
+				        	});
 	        		}	
 			    }, 500);
         	};
@@ -470,41 +498,46 @@ var app = angular.module("computer", ["ngRoute"])
 	        imgToBase64(fileCuenta,7);
 	        var Data = {};
 	        setTimeout(function(){
+	        		if(errorImg()){
 	        			var localTime = new Date();
-		        		Data = {"cedula":$scope.cedula,
-							"proPonGeneral":$scope.ppg,
-							"proPonSemestral":$scope.pps,
-							"creditosGeneral":$scope.cg,
-							"creditosSemestre":$scope.cs,
-							"cuentaBanco":$scope.bn,
-							"banco":bank,
-							"carne":$scope.carne,
-							"horas":0,
-							"imgPpg":$scope.strPpg,
-							"imgPps":$scope.strPps,
-							"imgCg":$scope.strCg,
-							"imgCs":$scope.strCs,
-							"imgCBanco":$scope.strCuenta,
-							"imgCed":$scope.strCedula,
-							"imgCar":$scope.strCarne,
-							"idCurso":parseInt(document.getElementById('curso').value),
-							"idProfesor":parseInt(document.getElementById('profesor').value),
-							"notaCurso":$scope.notaCurso,
-							"imgNotaCurso":$scope.strNota,
-							"fecha":localTime,
-							"telefono":$scope.telefono,
-							"anosTEC":$scope.anTEC,
-							"estado":0,
-							"otrasAsistenciasDesc": $scope.departamentos,
-							"otrasAsistenciasHoras": $scope.horasDepartamento};
+		        		Data = {"tipoSolicitud": "HA",
+								"carrera":1,
+								"cedula" : $scope.cedula,
+								"proPonGeneral":$scope.ppg,
+								"proPonSemestral":$scope.pps,
+								"creditosGeneral":$scope.cg,
+								"creditosSemestre":$scope.cs,
+								"cuentaBanco":$scope.bn,
+								"banco":bank,
+								"carne":$scope.carne,
+								"horas":0,
+								"imgPpg":$scope.strPpg,
+								"imgPps":$scope.strPps,
+								"imgCg":$scope.strCg,
+								"imgCs":$scope.strCs,
+								"imgCBanco":$scope.strCuenta,
+								"imgCed":$scope.strCedula,
+								"imgCar":$scope.strCarne,
+								"idCurso":document.getElementById('curso').value,
+								"idProfesor":parseInt(document.getElementById('profesor').value),
+								"notaCurso":$scope.notaCurso,
+								"imgNotaCurso":$scope.strNota,
+								"fecha":localTime,
+								"telefono":$scope.telefono,
+								"anosTEC":$scope.anTEC,
+								"estado":0,
+								"otrasAsistenciasDesc": $scope.departamentos,
+								"otrasAsistenciasHoras":$scope.horasDepartamento
+								}
 							console.log(Data);
-							alert($scope.strCarne);
-							/*$http.post("http://192.168.100.7/api/Solicitudes?codigo=S01", Data).
+							
+							$http.post("http://localhost:7010/api/Solicitudes?codigo=S01", Data).
 				        	then(function(response) {
 				            	$scope.res = response.data;
 				            	console.log($scope.res);
-				        	});*/
-	        			
+				            	alert("Su borrador ha sido guardado");
+				        	});
+	        		}	
 			    }, 500);
         	};
 
@@ -532,7 +565,9 @@ var app = angular.module("computer", ["ngRoute"])
 	        setTimeout(function(){
 	        		if(errorImg()){
 	        			var localTime = new Date();
-		        		Data = {"cedula":$scope.cedula,
+		        		Data = {"tipoSolicitud": "HT",
+							"carrera":1,
+		        			"cedula":$scope.cedula,
 							"proPonGeneral":$scope.ppg,
 							"proPonSemestral":$scope.pps,
 							"creditosGeneral":$scope.cg,
@@ -548,23 +583,24 @@ var app = angular.module("computer", ["ngRoute"])
 							"imgCBanco":$scope.strCuenta,
 							"imgCed":$scope.strCedula,
 							"imgCar":$scope.strCarne,
-							"idCurso":parseInt(document.getElementById('curso').value),
-							"idProfesor":parseInt(document.getElementById('profesor').value),
+							"idCurso":document.getElementById("curso").value,
+							"idProfesor":1,
 							"notaCurso":$scope.notaCurso,
 							"imgNotaCurso":$scope.strNota,
 							"fecha":localTime,
 							"telefono":$scope.telefono,
 							"anosTEC":$scope.anTEC,
-							"estado":0,
+							"estado":1,
 							"otrasAsistenciasDesc": $scope.departamentos,
 							"otrasAsistenciasHoras": $scope.horasDepartamento};
 							console.log(Data);
-							alert("Su solicitud ha sido enviada");
-							/*$http.post("http://192.168.100.7/api/Solicitudes?codigo=S01", Data).
+							
+							$http.post("http://localhost:7010/api/Solicitudes?codigo=S01", Data).
 				        	then(function(response) {
 				            	$scope.res = response.data;
 				            	console.log($scope.res);
-				        	});*/
+				            	alert("Su solicitud ha sido enviada");
+				        	});
 	        		}	
 			    }, 500);
         	};
@@ -587,8 +623,11 @@ var app = angular.module("computer", ["ngRoute"])
 	        imgToBase64(fileCuenta,7);
 	        var Data = {};
 	        setTimeout(function(){
+	        		if(errorImg()){
 	        			var localTime = new Date();
-		        		Data = {"cedula":$scope.cedula,
+		        		Data = {"tipoSolicitud": "HT",
+							"carrera":1,
+		        			"cedula":$scope.cedula,
 							"proPonGeneral":$scope.ppg,
 							"proPonSemestral":$scope.pps,
 							"creditosGeneral":$scope.cg,
@@ -604,8 +643,8 @@ var app = angular.module("computer", ["ngRoute"])
 							"imgCBanco":$scope.strCuenta,
 							"imgCed":$scope.strCedula,
 							"imgCar":$scope.strCarne,
-							"idCurso":parseInt(document.getElementById('curso').value),
-							"idProfesor":parseInt(document.getElementById('profesor').value),
+							"idCurso":document.getElementById("curso").value,
+							"idProfesor":1,
 							"notaCurso":$scope.notaCurso,
 							"imgNotaCurso":$scope.strNota,
 							"fecha":localTime,
@@ -615,13 +654,14 @@ var app = angular.module("computer", ["ngRoute"])
 							"otrasAsistenciasDesc": $scope.departamentos,
 							"otrasAsistenciasHoras": $scope.horasDepartamento};
 							console.log(Data);
-							alert($scope.strCarne);
-							/*$http.post("http://192.168.100.7/api/Solicitudes?codigo=S01", Data).
+							
+							$http.post("http://localhost:7010/api/Solicitudes?codigo=S01", Data).
 				        	then(function(response) {
 				            	$scope.res = response.data;
 				            	console.log($scope.res);
-				        	});*/
-	        			
+				            	alert("Su borrador ha sido guardado");
+				        	});
+	        		}	
 			    }, 500);
         	};
 
@@ -641,15 +681,15 @@ var app = angular.module("computer", ["ngRoute"])
 	        imgToBase64(fileCs,4);
 	        var fileCg = document.getElementById('imgCg').files[0];
 	        imgToBase64(fileCg,5);
-	        var fileNota = document.getElementById('imgNotaCurso').files[0];
-	        imgToBase64(fileNota,6);
 	        var fileCuenta = document.getElementById('imgCuenta').files[0];
 	        imgToBase64(fileCuenta,7);
 	        var Data = {};
 	        setTimeout(function(){
 	        		if(errorImg()){
 	        			var localTime = new Date();
-		        		Data = {"cedula":$scope.cedula,
+		        		Data = {"tipoSolicitud": "HE",
+							"carrera":1,
+		        			"cedula":$scope.cedula,
 							"proPonGeneral":$scope.ppg,
 							"proPonSemestral":$scope.pps,
 							"creditosGeneral":$scope.cg,
@@ -665,23 +705,24 @@ var app = angular.module("computer", ["ngRoute"])
 							"imgCBanco":$scope.strCuenta,
 							"imgCed":$scope.strCedula,
 							"imgCar":$scope.strCarne,
-							"idCurso":parseInt(document.getElementById('curso').value),
-							"idProfesor":parseInt(document.getElementById('profesor').value),
-							"notaCurso":$scope.notaCurso,
-							"imgNotaCurso":$scope.strNota,
+							"idCurso":"",
+							"idProfesor":0,
+							"notaCurso":0,
+							"imgNotaCurso":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
 							"fecha":localTime,
 							"telefono":$scope.telefono,
 							"anosTEC":$scope.anTEC,
-							"estado":0,
+							"estado":1,
 							"otrasAsistenciasDesc": $scope.departamentos,
 							"otrasAsistenciasHoras": $scope.horasDepartamento};
 							console.log(Data);
-							alert("Su solicitud ha sido enviada");
-							/*$http.post("http://192.168.100.7/api/Solicitudes?codigo=S01", Data).
+							
+							$http.post("http://localhost:7010/api/Solicitudes?codigo=S01", Data).
 				        	then(function(response) {
 				            	$scope.res = response.data;
 				            	console.log($scope.res);
-				        	});*/
+				            	alert("Su solicitud ha sido enviada");
+				        	});
 	        		}	
 			    }, 500);
         	};
@@ -698,14 +739,15 @@ var app = angular.module("computer", ["ngRoute"])
 	        imgToBase64(fileCs,4);
 	        var fileCg = document.getElementById('imgCg').files[0];
 	        imgToBase64(fileCg,5);
-	        var fileNota = document.getElementById('imgNotaCurso').files[0];
-	        imgToBase64(fileNota,6);
 	        var fileCuenta = document.getElementById('imgCuenta').files[0];
 	        imgToBase64(fileCuenta,7);
 	        var Data = {};
 	        setTimeout(function(){
+	        		if(errorImg()){
 	        			var localTime = new Date();
-		        		Data = {"cedula":$scope.cedula,
+		        		Data = {"tipoSolicitud": "HE",
+							"carrera":1,
+		        			"cedula":$scope.cedula,
 							"proPonGeneral":$scope.ppg,
 							"proPonSemestral":$scope.pps,
 							"creditosGeneral":$scope.cg,
@@ -721,10 +763,10 @@ var app = angular.module("computer", ["ngRoute"])
 							"imgCBanco":$scope.strCuenta,
 							"imgCed":$scope.strCedula,
 							"imgCar":$scope.strCarne,
-							"idCurso":parseInt(document.getElementById('curso').value),
-							"idProfesor":parseInt(document.getElementById('profesor').value),
-							"notaCurso":$scope.notaCurso,
-							"imgNotaCurso":$scope.strNota,
+							"idCurso":"",
+							"idProfesor":0,
+							"notaCurso":0,
+							"imgNotaCurso":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
 							"fecha":localTime,
 							"telefono":$scope.telefono,
 							"anosTEC":$scope.anTEC,
@@ -732,13 +774,14 @@ var app = angular.module("computer", ["ngRoute"])
 							"otrasAsistenciasDesc": $scope.departamentos,
 							"otrasAsistenciasHoras": $scope.horasDepartamento};
 							console.log(Data);
-							alert($scope.strCarne);
-							/*$http.post("http://192.168.100.7/api/Solicitudes?codigo=S01", Data).
+							
+							$http.post("http://localhost:7010/api/Solicitudes?codigo=S01", Data).
 				        	then(function(response) {
 				            	$scope.res = response.data;
 				            	console.log($scope.res);
-				        	});*/
-	        			
+				            	alert("Su borrador ha sido guardado");
+				        	});
+	        		}	
 			    }, 500);
         	};
 

@@ -56,6 +56,7 @@ InsertarSolicitud
 
 http://localhost:7010/api/Solicitudes?codigo=S01
 {"tipoSolicitud": "HE",
+"carrera":1,
 "cedula" : 895659,
 "proPonGeneral":89.2,
 "proPonSemestral":78.3,
@@ -72,8 +73,8 @@ http://localhost:7010/api/Solicitudes?codigo=S01
 "imgCBanco":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
 "imgCed":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
 "imgCar":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
-"idCurso":78,
-"idProfesor":859,
+"idCurso":"CE4101",
+"idProfesor":1,
 "notaCurso":100,
 "imgNotaCurso":"YW55IGNhcm5hbCBwbGVhc3VyZS4=",
 "fecha":"01/06/2013 00:00:00",
