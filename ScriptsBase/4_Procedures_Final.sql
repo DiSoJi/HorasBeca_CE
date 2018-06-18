@@ -562,7 +562,7 @@ BEGIN TRANSACTION;
 
 BEGIN TRY
 
-SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas, nota_curso_tut,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
+SELECT id_sol_gen,cedula_est,solicitud_general.id_carrera,carrera.nombre,prom_pond_gen,prom_pond_sem, creds_gen,creds_sem,cuenta_banco,banco,fecha_solicitud,prom_pond_gen_img,prom_pond_sem_img,creds_gen_img,creds_sem_img,cuenta_banco_img,anios_TEC,estado,id_sol,id_estudiante,cedula_img,carne_img,id_curso,nombre_curso,nota_curso_tut,nota_curso_tut_img,horas,id_prof_asistir,primer_apellido,segundo_apellido,primer_nombre,correo_electronico,cedula,horas_cumplidas,comentario
 FROM ((((solicitud_general FULL OUTER JOIN solicitud_tutoria ON solicitud_general.id_sol_gen = solicitud_tutoria.id_sol_general) FULL OUTER JOIN carrera ON solicitud_general.id_carrera = carrera.id_carrera) FULL OUTER JOIN curso ON solicitud_tutoria.id_curso = curso.codigo_curso) FULL OUTER JOIN ((usuario FULL OUTER JOIN roles_por_usuario ON usuario.id = roles_por_usuario.usuario) FULL OUTER JOIN rol ON rol.id_rol = roles_por_usuario.rol) ON usuario.id = solicitud_tutoria.id_prof_asistir)
 WHERE solicitud_general.activo = '1' AND solicitud_tutoria.activo = '1' AND solicitud_tutoria.id_estudiante = @carne AND solicitud_general.estado != '0'
 FOR JSON PATH; 
@@ -681,7 +681,7 @@ END CATCH;
 
 END
 GO
-*---------------------------------------------Para Administración-----------------------------------------------*
+/*---------------------------------------------Para Administración-----------------------------------------------*/
 
 CREATE PROCEDURE Select_SolicitudesEspecial_Historial_UDP
 	
@@ -785,7 +785,7 @@ END CATCH;
 END
 GO
 
-*-------------------------------------------------Periodo--------------------------------------------------------------*
+/*-------------------------------------------------Periodo--------------------------------------------------------------*/
 CREATE PROCEDURE Select_Periodo_Activo_UDP
 
 
@@ -892,12 +892,12 @@ END
 GO
 /*-------------------------------------------------------------------------------------------------------------------*/
 
-
-
-CREATE PROCEDURE Update_Sol_Horas_Especial_UDP_2
+CREATE PROCEDURE Update_Sol_Horas_Especial_UDP_1
 	-- Add the parameters for the stored procedure here
 	@solicitudWrapper SolicitudWrapper READONLY,
-	@ID_SOL_GEN int
+	@AsistenciasWrapper OtrasAsistenciasWrapper READONLY,
+	@ID_SOL_GEN int,
+	@ID_OTRAS_ASISTENCIAS int
 	
 AS
 BEGIN
@@ -927,7 +927,7 @@ telefono = i.telefono,
 estado = i.estado
 
 FROM (
-    SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado,0,'', 1
+    SELECT cedula,carrera, proPonGeneral, proPonSemestral, creditosGeneral, creditosSemestre, cuentaBanco, banco, fecha, imgPpg, imgPps,imgCg, imgCs, imgCBanco, imgCed,imgCar,anosTEC,telefono, estado
 	FROM  @solicitudWrapper) i
 WHERE solicitud_general.id_sol_gen = @ID_SOL_GEN
 
@@ -936,12 +936,21 @@ UPDATE solicitud_especial
 SET horas_solicitadas = j.horas
 
 FROM (
-    SELECT horas_solicitadas	
+    SELECT horas	
 	FROM  @solicitudWrapper) j
-WHERE solicitud_especial.id_sol_gen = @ID_SOL_GEN	
+WHERE solicitud_especial.id_sol_general = @ID_SOL_GEN	
 
 
-    COMMIT TRANSACTION;
+update otras_asistencias
+SET horas = k.horas,
+	descripcion = k.descripcion
+	
+FROM(
+    SELECT horas,descripcion	
+	FROM  @AsistenciasWrapper) K
+WHERE 	otras_asistencias.id_otras_asistencia = @ID_OTRAS_ASISTENCIAS	
+    
+	COMMIT TRANSACTION;
 END TRY
 BEGIN CATCH
 
