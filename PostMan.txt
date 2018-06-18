@@ -1,3 +1,54 @@
+API LOGIN
+***Pedir Token
+POST
+http://localhost:7878/ce/StudentAuth/Token
+{
+  "carne": "2015019679",
+  "email": "carva97valvi@gmail.com",
+}
+***Validar Token
+POST
+http://localhost:7878/ce/StudentAuth/Authenticate
+{
+  "carne": "2015019679",
+  "email": "carva97valvi@gmail.com",
+  "token": ""
+}
+***Agregar Usuario
+POST
+http://localhost:7878/ce/Users
+{
+  "correo_electronico": "carva97valvi@gmail.com",
+  "contrasenna": "d2VsY29tZTEyMw==",
+  "primer_nombre": "efren",
+  "segundo_nombre": "fabian",
+  "primer_apellido": "carvajal",
+  "segundo_apellido": "valveder",
+  "role": 2,
+  "id": 2,
+  "cedula": "116740214"
+}
+POST
+***Validar Usuario primera vez
+http://localhost:7878/ce/UserAuth/Authenticate
+{
+  "correo_electronico": "carva97valvi@gmail.com",
+  "password": "d2VsY29tZTEyMw=="
+}
+***Actualizar contrasenna
+PUT
+http://localhost:7878/ce/Users/8
+{
+  "correo_electronico": "carva97valvi@gmail.com",
+  "contrasenna": "eGFmaWxr",
+  "cedula": "116740214",
+  "primer_nombre": "efren",
+  "segundo_nombre": "fabian",
+  "primer_apellido": "carvajal",
+  "segundo_apellido": "valverde"
+}
+
+
 **************************
 SolicitudesController
 **************************

@@ -1,1 +1,0 @@
-D:\Escritorio\Proyecto Final\HorasBeca_CE\APIs\HorasBeca.Solicitudes.api\HorasBeca.Solicitudes.api.Tests\obj\Debug\HorasBeca.Solicitudes.api.Tests.csproj.CoreCompileInputs.cache

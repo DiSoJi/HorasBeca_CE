@@ -196,6 +196,44 @@ namespace HorasBeca.Solicitudes.api.Models
             }
             return table;
         }
+        //Conviete los bytes[] a base64 para devolverlo al servidor
+        public JObject ByteArrayToBase64(JObject data, string tipo)
+        {
+            if (tipo == "HE" || tipo=="AE")
+            {
+                data["cedula_img"] = Convert.ToBase64String((byte[])data.GetValue("cedula_img"));
+                data["carne_img"] = Convert.ToBase64String((byte[])data.GetValue("carne_img"));
+                data["prom_pond_gen_img"] = Convert.ToBase64String((byte[])data.GetValue("prom_pond_gen_img"));
+                data["prom_pond_sem_img"] = Convert.ToBase64String((byte[])data.GetValue("prom_pond_sem_img"));
+                data["creds_gen_img"] = Convert.ToBase64String((byte[])data.GetValue("creds_gen_img"));
+                data["creds_sem_img"] = Convert.ToBase64String((byte[])data.GetValue("creds_sem_img"));
+                data["cuenta_banco_img"] = Convert.ToBase64String((byte[])data.GetValue("cuenta_banco_img"));
+            }
+            else if (tipo == "HA")
+            {
+                data["cedula_img"] = Convert.ToBase64String((byte[])data.GetValue("cedula_img"));
+                data["carne_img"] = Convert.ToBase64String((byte[])data.GetValue("carne_img"));
+                data["prom_pond_gen_img"] = Convert.ToBase64String((byte[])data.GetValue("prom_pond_gen_img"));
+                data["prom_pond_sem_img"] = Convert.ToBase64String((byte[])data.GetValue("prom_pond_sem_img"));
+                data["creds_gen_img"] = Convert.ToBase64String((byte[])data.GetValue("creds_gen_img"));
+                data["creds_sem_img"] = Convert.ToBase64String((byte[])data.GetValue("creds_sem_img"));
+                data["cuenta_banco_img"] = Convert.ToBase64String((byte[])data.GetValue("cuenta_banco_img"));
+                data["nota_curso_asist_img"] = Convert.ToBase64String((byte[])data.GetValue("nota_curso_asist_img"));
+            }
+            else if (tipo == "HT")
+            {
+                data["prom_pond_gen_img"] = Convert.ToBase64String((byte[])data.GetValue("prom_pond_gen_img"));
+                data["prom_pond_sem_img"] = Convert.ToBase64String((byte[])data.GetValue("prom_pond_sem_img"));
+                data["creds_gen_img"] = Convert.ToBase64String((byte[])data.GetValue("creds_gen_img"));
+                data["creds_sem_img"] = Convert.ToBase64String((byte[])data.GetValue("creds_sem_img"));
+                data["cuenta_banco_img"] = Convert.ToBase64String((byte[])data.GetValue("cuenta_banco_img"));
+                data["cedula_img"] = Convert.ToBase64String((byte[])data.GetValue("cedula_img"));
+                data["carne_img"] = Convert.ToBase64String((byte[])data.GetValue("carne_img"));
+                data["nota_curso_tut_img"] = Convert.ToBase64String((byte[])data.GetValue("nota_curso_tut_img"));
+            }
+            return data;
+
+        }
         //Funcion para obtener solicitudes por tipo de solicitud 
         public JObject ObtenerTodasSolicitudesPorTipo(JObject data)
         {
@@ -227,8 +265,13 @@ namespace HorasBeca.Solicitudes.api.Models
                             jsonResult.Append(reader.GetValue(0).ToString());
                         }
                         temp = JArray.Parse(jsonResult.ToString());
+                        JArray temp2 = new JArray();
+                        foreach (JObject content in temp.Children<JObject>())
+                        {
+                            temp2.Add(ByteArrayToBase64(content, "HE"));
+                        }
                         respuesta = new JObject(
-                            new JProperty("Solicitudes", temp),
+                            new JProperty("Solicitudes", temp2),
                             new JProperty("Codigo", 200),
                             new JProperty("Estado", "Exito")
                         );
@@ -256,8 +299,13 @@ namespace HorasBeca.Solicitudes.api.Models
                             jsonResult.Append(reader1.GetValue(0).ToString());
                         }
                         temp = JArray.Parse(jsonResult.ToString());
+                        JArray temp2 = new JArray();
+                        foreach (JObject content in temp.Children<JObject>())
+                        {
+                            temp2.Add(ByteArrayToBase64(content, "HA"));
+                        }
                         respuesta = new JObject(
-                            new JProperty("Solicitudes", temp),
+                            new JProperty("Solicitudes", temp2),
                             new JProperty("Codigo", 200),
                             new JProperty("Estado", "Exito")
                         );
@@ -285,8 +333,13 @@ namespace HorasBeca.Solicitudes.api.Models
                             jsonResult.Append(reader2.GetValue(0).ToString());
                         }
                         temp = JArray.Parse(jsonResult.ToString());
+                        JArray temp2 = new JArray();
+                        foreach (JObject content in temp.Children<JObject>())
+                        {
+                            temp2.Add(ByteArrayToBase64(content, "AE"));
+                        }
                         respuesta = new JObject(
-                            new JProperty("Solicitudes", temp),
+                            new JProperty("Solicitudes", temp2),
                             new JProperty("Codigo", 200),
                             new JProperty("Estado", "Exito")
                         );
@@ -314,8 +367,13 @@ namespace HorasBeca.Solicitudes.api.Models
                             jsonResult.Append(reader3.GetValue(0).ToString());
                         }
                         temp = JArray.Parse(jsonResult.ToString());
+                        JArray temp2 = new JArray();
+                        foreach (JObject content in temp.Children<JObject>())
+                        {
+                            temp2.Add(ByteArrayToBase64(content, "HT"));
+                        }
                         respuesta = new JObject(
-                            new JProperty("Solicitudes", temp),
+                            new JProperty("Solicitudes", temp2),
                             new JProperty("Codigo", 200),
                             new JProperty("Estado", "Exito")
                         );
@@ -362,8 +420,13 @@ namespace HorasBeca.Solicitudes.api.Models
                                 jsonResult.Append(reader.GetValue(0).ToString());
                             }
                             temp = JArray.Parse(jsonResult.ToString());
+                            JArray temp2 = new JArray();
+                            foreach (JObject content in temp.Children<JObject>())
+                            {
+                                temp2.Add(ByteArrayToBase64(content, "HT"));
+                            }
                             respuesta = new JObject(
-                                new JProperty("Solicitudes", temp),
+                                new JProperty("Solicitudes", temp2),
                                 new JProperty("Codigo", 200),
                                 new JProperty("Estado", "Exito")
                             );
@@ -393,8 +456,13 @@ namespace HorasBeca.Solicitudes.api.Models
                                 jsonResult.Append(reader.GetValue(0).ToString());
                             }
                             temp = JArray.Parse(jsonResult.ToString());
+                            JArray temp2 = new JArray();
+                            foreach (JObject content in temp.Children<JObject>())
+                            {
+                                temp2.Add(ByteArrayToBase64(content, "HT"));
+                            }
                             respuesta = new JObject(
-                                new JProperty("Solicitudes", temp),
+                                new JProperty("Solicitudes", temp2),
                                 new JProperty("Codigo", 200),
                                 new JProperty("Estado", "Exito")
                             );
@@ -425,9 +493,15 @@ namespace HorasBeca.Solicitudes.api.Models
                             {
                                 jsonResult.Append(reader.GetValue(0).ToString());
                             }
+                            
                             temp = JArray.Parse(jsonResult.ToString());
+                            JArray temp2 = new JArray();
+                            foreach (JObject content in temp.Children<JObject>())
+                            {
+                                temp2.Add(ByteArrayToBase64(content,"HE"));
+                            }
                             respuesta = new JObject(
-                                new JProperty("Solicitudes", temp),
+                                new JProperty("Solicitudes", temp2),
                                 new JProperty("Codigo", 200),
                                 new JProperty("Estado", "Exito")
                             );
@@ -457,8 +531,13 @@ namespace HorasBeca.Solicitudes.api.Models
                                 jsonResult.Append(reader.GetValue(0).ToString());
                             }
                             temp = JArray.Parse(jsonResult.ToString());
+                            JArray temp2 = new JArray();
+                            foreach (JObject content in temp.Children<JObject>())
+                            {
+                                temp2.Add(ByteArrayToBase64(content, "HE"));
+                            }
                             respuesta = new JObject(
-                                new JProperty("Solicitudes", temp),
+                                new JProperty("Solicitudes", temp2),
                                 new JProperty("Codigo", 200),
                                 new JProperty("Estado", "Exito")
                             );
@@ -490,8 +569,13 @@ namespace HorasBeca.Solicitudes.api.Models
                                 jsonResult.Append(reader.GetValue(0).ToString());
                             }
                             temp = JArray.Parse(jsonResult.ToString());
+                            JArray temp2 = new JArray();
+                            foreach (JObject content in temp.Children<JObject>())
+                            {
+                                temp2.Add(ByteArrayToBase64(content, "AE"));
+                            }
                             respuesta = new JObject(
-                                new JProperty("Solicitudes", temp),
+                                new JProperty("Solicitudes", temp2),
                                 new JProperty("Codigo", 200),
                                 new JProperty("Estado", "Exito")
                             );
@@ -521,8 +605,13 @@ namespace HorasBeca.Solicitudes.api.Models
                                 jsonResult.Append(reader.GetValue(0).ToString());
                             }
                             temp = JArray.Parse(jsonResult.ToString());
+                            JArray temp2 = new JArray();
+                            foreach (JObject content in temp.Children<JObject>())
+                            {
+                                temp2.Add(ByteArrayToBase64(content, "AE"));
+                            }
                             respuesta = new JObject(
-                                new JProperty("Solicitudes", temp),
+                                new JProperty("Solicitudes", temp2),
                                 new JProperty("Codigo", 200),
                                 new JProperty("Estado", "Exito")
                             );
@@ -554,8 +643,13 @@ namespace HorasBeca.Solicitudes.api.Models
                                 jsonResult.Append(reader.GetValue(0).ToString());
                             }
                             temp = JArray.Parse(jsonResult.ToString());
+                            JArray temp2 = new JArray();
+                            foreach (JObject content in temp.Children<JObject>())
+                            {
+                                temp2.Add(ByteArrayToBase64(content, "HA"));
+                            }
                             respuesta = new JObject(
-                                new JProperty("Solicitudes", temp),
+                                new JProperty("Solicitudes", temp2),
                                 new JProperty("Codigo", 200),
                                 new JProperty("Estado", "Exito")
                             );
@@ -585,8 +679,13 @@ namespace HorasBeca.Solicitudes.api.Models
                                 jsonResult.Append(reader.GetValue(0).ToString());
                             }
                             temp = JArray.Parse(jsonResult.ToString());
+                            JArray temp2 = new JArray();
+                            foreach (JObject content in temp.Children<JObject>())
+                            {
+                                temp2.Add(ByteArrayToBase64(content, "HA"));
+                            }
                             respuesta = new JObject(
-                                new JProperty("Solicitudes", temp),
+                                new JProperty("Solicitudes", temp2),
                                 new JProperty("Codigo", 200),
                                 new JProperty("Estado", "Exito")
                             );
@@ -643,5 +742,14 @@ namespace HorasBeca.Solicitudes.api.Models
             }
             return respuesta;
         }
+        //Actualizar solicitudes 
+        public JObject ActualizarSolicitudes(JObject data)
+        {
+
+            return respuesta;
+
+
+        }
+     
     }
 }

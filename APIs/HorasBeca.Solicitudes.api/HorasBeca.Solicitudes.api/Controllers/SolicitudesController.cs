@@ -47,6 +47,9 @@ namespace HorasBeca.Solicitudes.api.Controllers
                 case ("S04")://Cancelar Solicitud(Diferente a borrador)
                     respuesta = solicitud.CambiarEstadoSolicitud(data);
                     break;
+                case ("S05"):
+                    
+                    break;
                 default:
                     break;
             }
