@@ -69,7 +69,7 @@ INSERT rol (nombre, sistema) VALUES ('Administrador Comisión', 2);
 INSERT rol (nombre, sistema) VALUES ('Responsable', 2);
 INSERT rol (nombre, sistema) VALUES ('Asistente', 2);
 
-INSERT usuario (correo_electronico, cedula, contrasenna, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido) VALUES ('N/A', 'N/A','N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+INSERT usuario (correo_electronico, cedula, contrasenna, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido) VALUES ('NA', 'NA','NA', 'NA', 'NA', 'NA', 'NA');
 
 
 CREATE TABLE curso (

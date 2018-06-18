@@ -13,12 +13,12 @@ INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('11', 'Cancelado
 INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('12', 'Pendiente de Cancelación', '1');
 INSERT INTO estados_solicitud (id_estado,nombre,activo) VALUES ('13', 'Cancelación Rechazada', '1');
 
-INSERT INTO curso(codigo_curso,nombre_curso,activo) VALUES('N/A','No Seleccionado','1');
+INSERT INTO curso(codigo_curso,nombre_curso,activo) VALUES('NA','No Seleccionado','1');
 INSERT INTO curso(codigo_curso,nombre_curso,activo) VALUES('CE4101','Especificacón y Deseño de Software','1');
 INSERT INTO curso(codigo_curso,nombre_curso,activo) VALUES('CE3101','Bases de Datos','1');
 INSERT INTO curso(codigo_curso,nombre_curso,activo) VALUES('CE3104','Lenguajes, Compiladores e Interpretes','1');
 
-INSERT INTO carrera(nombre,activo) VALUES('N/A','1');
+INSERT INTO carrera(nombre,activo) VALUES('NA','1');
 INSERT INTO carrera(nombre,activo) VALUES('CE','1');
 INSERT INTO carrera(nombre,activo) VALUES('IC','1');
 INSERT INTO carrera(nombre,activo) VALUES('IE','1');
