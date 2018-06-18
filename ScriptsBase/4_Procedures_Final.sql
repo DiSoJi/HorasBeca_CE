@@ -812,6 +812,35 @@ END CATCH;
 END
 GO
 
+/*-------------------------------------------------Select todos los Periodos--------------------------------------------------------------*/
+
+CREATE PROCEDURE Select_Periodos_UDP
+
+
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+SELECT fecha_apertura,fecha_cierre,fecha_envio,num_max_horas,fecha_inicio_eval,fecha_cierre_eval
+FROM config
+
+
+FOR JSON PATH; 
+
+COMMIT TRANSACTION;
+END TRY
+
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+END
+GO
+
+
 CREATE PROCEDURE Insert_Periodo_Activo_UDP
 @Fecha_inicio datetime,
 @Fecha_cierre datetime,
@@ -904,6 +933,33 @@ BEGIN TRANSACTION;
 BEGIN TRY
 
 UPDATE config SET activo = '0' WHERE config.activo = '1'
+
+
+COMMIT TRANSACTION;
+END TRY
+
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+END CATCH;
+
+END
+GO
+
+/*-------------------------------------------------Extender Periodo------------------------------------------------------------------*/
+
+
+CREATE PROCEDURE Update_Periodo_UDP
+@ID_periodo int,
+@Fecha_cierre datetime
+
+AS
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+UPDATE config SET fecha_cierre = @Fecha_cierre WHERE id_periodo = @ID_periodo
 
 
 COMMIT TRANSACTION;
