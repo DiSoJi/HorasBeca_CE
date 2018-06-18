@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System.Data.SqlClient;
 using System.Data;
 using System.Data.SqlTypes;
+using System.Text;
 
 namespace HorasBeca.Solicitudes.api.Models
 {
@@ -16,14 +17,14 @@ namespace HorasBeca.Solicitudes.api.Models
     {
         string connectionString = "";
         int rowsAffected = 0;
+        JObject respuesta = new JObject();
         public Solicitudes()
         {
             connectionString = WebConfigurationManager.AppSettings["ConnectionString"];
         }
-
+        //Insertar solicitudes
         public JObject InsertarSolicitud(JObject data)
         {
-            JObject respuesta = new JObject();
             string tipoSolicitud = (string)data.GetValue("tipoSolicitud");
             //Cobierte las imagenes de base64 a bit[]
             data["imgPpg"] = Convert.FromBase64String((string)data.GetValue("imgPpg"));
@@ -124,6 +125,7 @@ namespace HorasBeca.Solicitudes.api.Models
                     }
                     break;
             }
+            dbConexion.Close();
             //Por problemas con el noncount la insersion es correcta si afecta al numero teorico de filas
             if (rowsAffected == (2 + otrasAsistenciasDesc.Count()))
             {
@@ -160,7 +162,7 @@ namespace HorasBeca.Solicitudes.api.Models
             table.Columns.Add("imgCBanco", typeof(SqlBinary));
             table.Columns.Add("imgCed", typeof(SqlBinary));
             table.Columns.Add("imgCar", typeof(SqlBinary));
-            table.Columns.Add("idCurso", typeof(int));
+            table.Columns.Add("idCurso", typeof(string));
             table.Columns.Add("idProfesor", typeof(int));
             table.Columns.Add("notaCurso", typeof(int));
             table.Columns.Add("imgNotaCurso", typeof(SqlBinary));
@@ -173,7 +175,7 @@ namespace HorasBeca.Solicitudes.api.Models
             table.Rows.Add((int)temp.cedula, (string)temp.carrera, (float)temp.proPonGeneral, (float)temp.proPonSemestral,
                 (int)temp.creditosGeneral, (int)temp.creditosSemestre, (int)temp.cuentaBanco, (string)temp.banco, 
                 (string)temp.carne, (int)temp.horas, (byte[])temp.imgPpg, (byte[])temp.imgPps, (byte[])temp.imgCg,
-                (byte[])temp.imgCs, (byte[])temp.imgCBanco, (byte[])temp.imgCed, (byte[])temp.imgCar, (int)temp.idCurso,
+                (byte[])temp.imgCs, (byte[])temp.imgCBanco, (byte[])temp.imgCed, (byte[])temp.imgCar, (string)temp.idCurso,
                 (int)temp.idProfesor, (int)temp.notaCurso, (byte[])temp.imgNotaCurso, (DateTime)temp.fecha, 
                 (int)temp.telefono, (float)temp.anosTEC,(int)temp.estado);
             return table;
@@ -197,7 +199,8 @@ namespace HorasBeca.Solicitudes.api.Models
         //Funcion para obtener solicitudes por tipo de solicitud 
         public JObject ObtenerTodasSolicitudesPorTipo(JObject data)
         {
-            JObject respuesta = new JObject();
+            JArray temp = new JArray();
+            var jsonResult = new StringBuilder();
             string tipoSolicitud = (string)data.GetValue("tipoSolicitud");
             SqlConnection dbConexion = new SqlConnection(connectionString);
             dbConexion.Open();
@@ -206,26 +209,405 @@ namespace HorasBeca.Solicitudes.api.Models
                 case ("HE"):
                     SqlCommand Comando = new SqlCommand("", dbConexion);//LLama un Stored Procedur
                     Comando.CommandType = CommandType.StoredProcedure;
-                    rowsAffected = Comando.ExecuteNonQuery();
+                    //Comando almacena el JSON que devolvio la base de datos
+                    //.ExecuteReader() permite obtener el contenido de la variable Comando
+                    SqlDataReader reader = Comando.ExecuteReader();
+                    if (!reader.HasRows)
+                    {
+                        respuesta.Add("Estado", "Error");
+                        respuesta.Add("Codigo", 201);
+                    }
+                    else
+                    {
+                        //Se construye un string con los valores del JSON dentro de Comando 
+                        //Luego el string es parseado a JSON por medio de un JObject 
+                        //El JObject ya se puede manejar con normalidad
+                        while (reader.Read())
+                        {
+                            jsonResult.Append(reader.GetValue(0).ToString());
+                        }
+                        temp = JArray.Parse(jsonResult.ToString());
+                        respuesta = new JObject(
+                            new JProperty("Solicitudes", temp),
+                            new JProperty("Codigo", 200),
+                            new JProperty("Estado", "Exito")
+                        );
+                    }
+                    reader.Close();
                     break;
                 case ("HA"):
                     SqlCommand Comando1 = new SqlCommand("", dbConexion);//LLama un Stored Procedur
                     Comando1.CommandType = CommandType.StoredProcedure;
-                    rowsAffected = Comando1.ExecuteNonQuery();
+                    //Comando almacena el JSON que devolvio la base de datos
+                    //.ExecuteReader() permite obtener el contenido de la variable Comando
+                    SqlDataReader reader1 = Comando1.ExecuteReader();
+                    if (!reader1.HasRows)
+                    {
+                        respuesta.Add("Estado", "Error");
+                        respuesta.Add("Codigo", 201);
+                    }
+                    else
+                    {
+                        //Se construye un string con los valores del JSON dentro de Comando 
+                        //Luego el string es parseado a JSON por medio de un JObject 
+                        //El JObject ya se puede manejar con normalidad
+                        while (reader1.Read())
+                        {
+                            jsonResult.Append(reader1.GetValue(0).ToString());
+                        }
+                        temp = JArray.Parse(jsonResult.ToString());
+                        respuesta = new JObject(
+                            new JProperty("Solicitudes", temp),
+                            new JProperty("Codigo", 200),
+                            new JProperty("Estado", "Exito")
+                        );
+                    }
+                    reader1.Close();
                     break;
                 case ("AE"):
                     SqlCommand Comando2 = new SqlCommand("", dbConexion);//LLama un Stored Procedur
                     Comando2.CommandType = CommandType.StoredProcedure;
-                    rowsAffected = Comando2.ExecuteNonQuery();
+                    //Comando almacena el JSON que devolvio la base de datos
+                    //.ExecuteReader() permite obtener el contenido de la variable Comando
+                    SqlDataReader reader2 = Comando2.ExecuteReader();
+                    if (!reader2.HasRows)
+                    {
+                        respuesta.Add("Estado", "Error");
+                        respuesta.Add("Codigo", 201);
+                    }
+                    else
+                    {
+                        //Se construye un string con los valores del JSON dentro de Comando 
+                        //Luego el string es parseado a JSON por medio de un JObject 
+                        //El JObject ya se puede manejar con normalidad
+                        while (reader2.Read())
+                        {
+                            jsonResult.Append(reader2.GetValue(0).ToString());
+                        }
+                        temp = JArray.Parse(jsonResult.ToString());
+                        respuesta = new JObject(
+                            new JProperty("Solicitudes", temp),
+                            new JProperty("Codigo", 200),
+                            new JProperty("Estado", "Exito")
+                        );
+                    }
+                    reader2.Close();
                     break;
                 case ("HT"):
                     SqlCommand Comando3 = new SqlCommand("", dbConexion);//LLama un Stored Procedur
                     Comando3.CommandType = CommandType.StoredProcedure;
-                    rowsAffected = Comando3.ExecuteNonQuery();
+                    //Comando almacena el JSON que devolvio la base de datos
+                    //.ExecuteReader() permite obtener el contenido de la variable Comando
+                    SqlDataReader reader3 = Comando3.ExecuteReader();
+                    if (!reader3.HasRows)
+                    {
+                        respuesta.Add("Estado", "Error");
+                        respuesta.Add("Codigo", 201);
+                    }
+                    else
+                    {
+                        //Se construye un string con los valores del JSON dentro de Comando 
+                        //Luego el string es parseado a JSON por medio de un JObject 
+                        //El JObject ya se puede manejar con normalidad
+                        while (reader3.Read())
+                        {
+                            jsonResult.Append(reader3.GetValue(0).ToString());
+                        }
+                        temp = JArray.Parse(jsonResult.ToString());
+                        respuesta = new JObject(
+                            new JProperty("Solicitudes", temp),
+                            new JProperty("Codigo", 200),
+                            new JProperty("Estado", "Exito")
+                        );
+                    }
+                    reader3.Close();
                     break;
             }
-            //Se comprueba si el select fue exitoso
-            if (rowsAffected !=0 )
+            dbConexion.Close();
+            return respuesta;
+        }
+
+        //Funcion para obtener solicitudes por carnet
+        public JObject ObtenerTodasSolicitudesPorCarne(JObject data)
+        {
+            JArray temp = new JArray();
+            var jsonResult = new StringBuilder();
+            string tipoSolicitud = (string)data.GetValue("tipoSolicitud");
+            string estado = (string)data.GetValue("estado");
+            SqlConnection dbConexion = new SqlConnection(connectionString);
+            dbConexion.Open();
+            switch (tipoSolicitud)
+            {
+                case ("HT")://Horas Tutor
+                    if (estado == "Historial")
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesTuroriaxCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        //Comando almacena el JSON que devolvio la base de datos
+                        //.ExecuteReader() permite obtener el contenido de la variable Comando
+                        SqlDataReader reader = Comando.ExecuteReader();
+                        if (!reader.HasRows)
+                        {
+                            respuesta.Add("Estado", "Error");
+                            respuesta.Add("Codigo", 201);
+                        }
+                        else
+                        {
+                            //Se construye un string con los valores del JSON dentro de Comando 
+                            //Luego el string es parseado a JSON por medio de un JObject 
+                            //El JObject ya se puede manejar con normalidad
+                            while (reader.Read())
+                            {
+                                jsonResult.Append(reader.GetValue(0).ToString());
+                            }
+                            temp = JArray.Parse(jsonResult.ToString());
+                            respuesta = new JObject(
+                                new JProperty("Solicitudes", temp),
+                                new JProperty("Codigo", 200),
+                                new JProperty("Estado", "Exito")
+                            );
+                        }
+                        reader.Close();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesTuroriaxCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        //Comando almacena el JSON que devolvio la base de datos
+                        //.ExecuteReader() permite obtener el contenido de la variable Comando
+                        SqlDataReader reader = Comando.ExecuteReader();
+                        if (!reader.HasRows)
+                        {
+                            respuesta.Add("Estado", "Error");
+                            respuesta.Add("Codigo", 201);
+                        }
+                        else
+                        {
+                            //Se construye un string con los valores del JSON dentro de Comando 
+                            //Luego el string es parseado a JSON por medio de un JObject 
+                            //El JObject ya se puede manejar con normalidad
+                            while (reader.Read())
+                            {
+                                jsonResult.Append(reader.GetValue(0).ToString());
+                            }
+                            temp = JArray.Parse(jsonResult.ToString());
+                            respuesta = new JObject(
+                                new JProperty("Solicitudes", temp),
+                                new JProperty("Codigo", 200),
+                                new JProperty("Estado", "Exito")
+                            );
+                        }
+                        reader.Close();
+                    }
+                    break;
+                case ("HE")://Horas Estudiante
+                    if (estado == "Historial")
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEstudiantexCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        //Comando almacena el JSON que devolvio la base de datos
+                        //.ExecuteReader() permite obtener el contenido de la variable Comando
+                        SqlDataReader reader = Comando.ExecuteReader();
+                        if (!reader.HasRows)
+                        {
+                            respuesta.Add("Estado", "Error");
+                            respuesta.Add("Codigo", 201);
+                        }
+                        else
+                        {
+                            //Se construye un string con los valores del JSON dentro de Comando 
+                            //Luego el string es parseado a JSON por medio de un JObject 
+                            //El JObject ya se puede manejar con normalidad
+                            while (reader.Read())
+                            {
+                                jsonResult.Append(reader.GetValue(0).ToString());
+                            }
+                            temp = JArray.Parse(jsonResult.ToString());
+                            respuesta = new JObject(
+                                new JProperty("Solicitudes", temp),
+                                new JProperty("Codigo", 200),
+                                new JProperty("Estado", "Exito")
+                            );
+                        }
+                        reader.Close();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEstudiantexCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        //Comando almacena el JSON que devolvio la base de datos
+                        //.ExecuteReader() permite obtener el contenido de la variable Comando
+                        SqlDataReader reader = Comando.ExecuteReader();
+                        if (!reader.HasRows)
+                        {
+                            respuesta.Add("Estado", "Error");
+                            respuesta.Add("Codigo", 201);
+                        }
+                        else
+                        {
+                            //Se construye un string con los valores del JSON dentro de Comando 
+                            //Luego el string es parseado a JSON por medio de un JObject 
+                            //El JObject ya se puede manejar con normalidad
+                            while (reader.Read())
+                            {
+                                jsonResult.Append(reader.GetValue(0).ToString());
+                            }
+                            temp = JArray.Parse(jsonResult.ToString());
+                            respuesta = new JObject(
+                                new JProperty("Solicitudes", temp),
+                                new JProperty("Codigo", 200),
+                                new JProperty("Estado", "Exito")
+                            );
+                        }
+                        reader.Close();
+                    }
+                    break;
+                case ("AE")://Asistencia Especial
+                    if (estado == "Historial")
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEspecialxCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        //Comando almacena el JSON que devolvio la base de datos
+                        //.ExecuteReader() permite obtener el contenido de la variable Comando
+                        SqlDataReader reader = Comando.ExecuteReader();
+                        if (!reader.HasRows)
+                        {
+                            respuesta.Add("Estado", "Error");
+                            respuesta.Add("Codigo", 201);
+                        }
+                        else
+                        {
+                            //Se construye un string con los valores del JSON dentro de Comando 
+                            //Luego el string es parseado a JSON por medio de un JObject 
+                            //El JObject ya se puede manejar con normalidad
+                            while (reader.Read())
+                            {
+                                jsonResult.Append(reader.GetValue(0).ToString());
+                            }
+                            temp = JArray.Parse(jsonResult.ToString());
+                            respuesta = new JObject(
+                                new JProperty("Solicitudes", temp),
+                                new JProperty("Codigo", 200),
+                                new JProperty("Estado", "Exito")
+                            );
+                        }
+                        reader.Close();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEspecialxCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        //Comando almacena el JSON que devolvio la base de datos
+                        //.ExecuteReader() permite obtener el contenido de la variable Comando
+                        SqlDataReader reader = Comando.ExecuteReader();
+                        if (!reader.HasRows)
+                        {
+                            respuesta.Add("Estado", "Error");
+                            respuesta.Add("Codigo", 201);
+                        }
+                        else
+                        {
+                            //Se construye un string con los valores del JSON dentro de Comando 
+                            //Luego el string es parseado a JSON por medio de un JObject 
+                            //El JObject ya se puede manejar con normalidad
+                            while (reader.Read())
+                            {
+                                jsonResult.Append(reader.GetValue(0).ToString());
+                            }
+                            temp = JArray.Parse(jsonResult.ToString());
+                            respuesta = new JObject(
+                                new JProperty("Solicitudes", temp),
+                                new JProperty("Codigo", 200),
+                                new JProperty("Estado", "Exito")
+                            );
+                        }
+                        reader.Close();
+                    }
+                    break;
+                case ("HA")://Horas Asistente
+                    if (estado == "Historial")
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesAsistentexCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        //Comando almacena el JSON que devolvio la base de datos
+                        //.ExecuteReader() permite obtener el contenido de la variable Comando
+                        SqlDataReader reader = Comando.ExecuteReader();
+                        if (!reader.HasRows)
+                        {
+                            respuesta.Add("Estado", "Error");
+                            respuesta.Add("Codigo", 201);
+                        }
+                        else
+                        {
+                            //Se construye un string con los valores del JSON dentro de Comando 
+                            //Luego el string es parseado a JSON por medio de un JObject 
+                            //El JObject ya se puede manejar con normalidad
+                            while (reader.Read())
+                            {
+                                jsonResult.Append(reader.GetValue(0).ToString());
+                            }
+                            temp = JArray.Parse(jsonResult.ToString());
+                            respuesta = new JObject(
+                                new JProperty("Solicitudes", temp),
+                                new JProperty("Codigo", 200),
+                                new JProperty("Estado", "Exito")
+                            );
+                        }
+                        reader.Close();
+                    }
+                    else
+                    {
+                        SqlCommand Comando = new SqlCommand("Select_SolicitudesAsistentexCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
+                        Comando.CommandType = CommandType.StoredProcedure;
+                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
+                        //Comando almacena el JSON que devolvio la base de datos
+                        //.ExecuteReader() permite obtener el contenido de la variable Comando
+                        SqlDataReader reader = Comando.ExecuteReader();
+                        if (!reader.HasRows)
+                        {
+                            respuesta.Add("Estado", "Error");
+                            respuesta.Add("Codigo", 201);
+                        }
+                        else
+                        {
+                            //Se construye un string con los valores del JSON dentro de Comando 
+                            //Luego el string es parseado a JSON por medio de un JObject 
+                            //El JObject ya se puede manejar con normalidad
+                            while (reader.Read())
+                            {
+                                jsonResult.Append(reader.GetValue(0).ToString());
+                            }
+                            temp = JArray.Parse(jsonResult.ToString());
+                            respuesta = new JObject(
+                                new JProperty("Solicitudes", temp),
+                                new JProperty("Codigo", 200),
+                                new JProperty("Estado", "Exito")
+                            );
+                        }
+                        reader.Close();
+                    }
+                    break;
+            }
+            dbConexion.Close();
+            return respuesta;
+        }
+        //Ejecuta la cancelacion de solictud en las diferentes instancias donde se pueda cancelar 
+        public JObject EliminarSolicitud(JObject data)
+        {
+            SqlConnection dbConexion = new SqlConnection(connectionString);
+            dbConexion.Open();
+            SqlCommand Comando = new SqlCommand("Delete_Solicitud_UDP", dbConexion);//LLama un Stored Procedur
+            Comando.CommandType = CommandType.StoredProcedure;
+            Comando.Parameters.Add("@id_solicitud", SqlDbType.Int).Value = (int)data.GetValue("id");
+            rowsAffected = Comando.ExecuteNonQuery();
+            if (rowsAffected == 1)
             {
                 respuesta.Add("Estado", "Exito");
                 respuesta.Add("Codigo", 200);
@@ -238,83 +620,18 @@ namespace HorasBeca.Solicitudes.api.Models
             return respuesta;
         }
 
-        //Funcion para obtener solicitudes por carnet
-        public JObject ObtenerTodasSolicitudesPorCarne(JObject data)
+        //Ejecuta la cancelacion de solictud en las diferentes instancias donde se pueda cancelar 
+        public JObject CambiarEstadoSolicitud(JObject data)
         {
-            JObject respuesta = new JObject();
-            string tipoSolicitud = (string)data.GetValue("tipoSolicitud");
-            string estado = (string)data.GetValue("estado");
             SqlConnection dbConexion = new SqlConnection(connectionString);
             dbConexion.Open();
-            switch (tipoSolicitud)
-            {
-                case ("HT"):
-                    if (estado == "Hisorial")
-                    {
-                        SqlCommand Comando = new SqlCommand("Select_SolicitudesTuroriaxCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
-                        Comando.CommandType = CommandType.StoredProcedure;
-                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
-                        rowsAffected = Comando.ExecuteNonQuery();
-                    }
-                    else
-                    {
-                        SqlCommand Comando = new SqlCommand("Select_SolicitudesTuroriaxCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
-                        Comando.CommandType = CommandType.StoredProcedure;
-                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
-                        rowsAffected = Comando.ExecuteNonQuery();
-                    }
-                    break;
-                case ("HE"):
-                    if (estado == "Hisorial")
-                    {
-                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEstudiantexCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
-                        Comando.CommandType = CommandType.StoredProcedure;
-                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
-                        rowsAffected = Comando.ExecuteNonQuery();
-                    }
-                    else
-                    {
-                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEstudiantexCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
-                        Comando.CommandType = CommandType.StoredProcedure;
-                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
-                        rowsAffected = Comando.ExecuteNonQuery();
-                    }
-                    break;
-                case ("AE"):
-                    if (estado == "Hisorial")
-                    {
-                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEspecialxCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
-                        Comando.CommandType = CommandType.StoredProcedure;
-                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
-                        rowsAffected = Comando.ExecuteNonQuery();
-                    }
-                    else
-                    {
-                        SqlCommand Comando = new SqlCommand("Select_SolicitudesEspecialxCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
-                        Comando.CommandType = CommandType.StoredProcedure;
-                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
-                        rowsAffected = Comando.ExecuteNonQuery();
-                    }
-                    break;
-                case ("HA"):
-                    if (estado == "Hisorial")
-                    {
-                        SqlCommand Comando = new SqlCommand("Select_SolicitudesAsistentexCarne_Historial_UDP", dbConexion);//LLama un Stored Procedur
-                        Comando.CommandType = CommandType.StoredProcedure;
-                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
-                        rowsAffected = Comando.ExecuteNonQuery();
-                    }
-                    else
-                    {
-                        SqlCommand Comando = new SqlCommand("Select_SolicitudesAsistentexCarne_Borrador_UDP", dbConexion);//LLama un Stored Procedur
-                        Comando.CommandType = CommandType.StoredProcedure;
-                        Comando.Parameters.Add("@carne", SqlDbType.VarChar).Value = (string)data.GetValue("carne");
-                        rowsAffected = Comando.ExecuteNonQuery();
-                    }
-                    break;
-            }
-            //Se comprueba si el select fue exitoso
-            if (rowsAffected != 0)
+            SqlCommand Comando = new SqlCommand("Update_Estado_Solicitud_UDP", dbConexion);//LLama un Stored Procedur
+            Comando.CommandType = CommandType.StoredProcedure;
+            Comando.Parameters.Add("@id_solicitud", SqlDbType.Int).Value = (int)data.GetValue("id");
+            Comando.Parameters.Add("@id_estado", SqlDbType.Int).Value = (int)data.GetValue("estado");
+            Comando.Parameters.Add("@comentario", SqlDbType.VarChar).Value = (string)data.GetValue("comentario");
+            rowsAffected = Comando.ExecuteNonQuery();
+            if (rowsAffected == 2)
             {
                 respuesta.Add("Estado", "Exito");
                 respuesta.Add("Codigo", 200);

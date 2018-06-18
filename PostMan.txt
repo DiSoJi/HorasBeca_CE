@@ -1,5 +1,8 @@
+**************************
 SolicitudesController
---InsertarSolicitud
+**************************
+InsertarSolicitud
+
 http://localhost:7010/api/Solicitudes?codigo=S01
 {"tipoSolicitud": "HE",
 "cedula" : 895659,
@@ -28,4 +31,17 @@ http://localhost:7010/api/Solicitudes?codigo=S01
 "estado":5,
 "otrasAsistenciasDesc": ["uno","dos","tres"],
 "otrasAsistenciasHoras":[5,2,1]
+}
+
+Obtener solicitudes por tipo(HE,HT,AE,HA)
+http://localhost:7010/api/Solicitudes?codigo=S03
+
+
+
+Obtener solicitudes por carnet(Historial,Borrador)
+http://localhost:7010/api/Solicitudes?codigo=S03
+{
+"tipoSolicitud":"AE",
+	"estado":"Historial",
+	"carne":"2015028430"
 }

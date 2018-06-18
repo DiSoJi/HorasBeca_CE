@@ -12,39 +12,58 @@ namespace HorasBeca.Solicitudes.api.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class SolicitudesController : ApiController
     {
-      
-       Solicitudes solicitud = new Solicitudes();
+        JObject respuesta = new JObject();
+        Solicitudes solicitud = new Solicitudes();
         public JObject Get()
         {
-            JObject response =
-                new JObject(
-                new JProperty("Codigo", 200),
-                new JProperty("Descripcion", "Exito")
-                );
-            return response;
+            respuesta.Add("Codigo", 200);
+            respuesta.Add("Estado", "Exito");
+            return respuesta;
         }
 
         public JObject Post(JObject x, string codigo)
         {
-            JObject resultado = new JObject();
-            switch (codigo){
+            switch (codigo)
+            {
                 case ("S01")://Codigo S01 -> Envio de solicitud
-                    resultado = solicitud.InsertarSolicitud(x);
+                    respuesta = solicitud.InsertarSolicitud(x);
                     break;
                 case ("S02")://Codigo S02 -> Solicitud de solicitudes por tipo solicitud
-                    resultado = solicitud.ObtenerTodasSolicitudesPorTipo(x);
+                    respuesta = solicitud.ObtenerTodasSolicitudesPorTipo(x);
                     break;
                 case ("S03")://Codigo S03 -> Solicitud de solicitudes por carne
-                    resultado = solicitud.ObtenerTodasSolicitudesPorCarne(x);
-                    break;
-                case ("S04")://Actualizar estado 
-                    //resultado = solicitud.
+                    respuesta = solicitud.ObtenerTodasSolicitudesPorCarne(x);
                     break;
                 default:
                     break;
             }
-            return resultado;
-      
+            return respuesta;
+        }
+
+        public JObject Put(JObject data, string codigo)
+        {
+            switch (codigo)
+            {
+                case ("S04")://Cancelar Solicitud(Diferente a borrador)
+                    respuesta = solicitud.CambiarEstadoSolicitud(data);
+                    break;
+                default:
+                    break;
+            }
+            return respuesta;
+        }
+        
+        public JObject Delete(JObject data, string codigo)
+        {
+            switch (codigo)
+            {
+                case ("S05")://Borrar Solicitudes (Borrador)
+                    respuesta = solicitud.EliminarSolicitud(data);
+                    break;
+                default:
+                    break;
+            }
+            return respuesta;
         }
     }
 }
