@@ -2,13 +2,21 @@
   	<form class="form-horizontal" action="/action_page.php">
   		<h2>Iniciar Sesión</h2>
   		<div class="form-group">
-		    <label for="uname" class="control-label"><b>Correo Electrónico</b></label>
+		    <label for="uname" class="control-label" id="email"><h1>Correo Electrónico</h1></label>
 		    <input type="email" class="form-control" ng-model="email" id="email" placeholder="ejemplo@gmail.com">
 		</div>
 
 		<div class="form-group">
-		    <label for="psw"><b>Carné</b></label>
-		    <input type="number" class="form-control" ng-model="id" id="email">
+		    <label for="psw"><h1 id="pass">Contraseña</h1></label>
+		    <input type="text" class="form-control" ng-model="id" id="email">
+	    </div>
+	    <div class="form-group">
+		    <div class="radio">
+			  <label><input type="radio" name="optradio" id="est" checked="true">Estudiante</label>
+			</div>
+			<div class="radio">
+			  <label><input type="radio" name="optradio" id="otro">Personal</label>
+			</div>
 	    </div>
 	</form>
 	<br>

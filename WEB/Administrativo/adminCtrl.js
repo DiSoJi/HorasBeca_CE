@@ -50,6 +50,14 @@ var app = angular.module("computer", ["ngRoute"])
       templateUrl: "evaluarEstudiante.html",
       controller: "AdminCtrl"
     }).
+    when("/ingUsuario",{
+      templateUrl: "ingresarUsuario.html",
+      controller: "AdminCtrl"
+    }).
+    when("/actUsuario",{
+      templateUrl: "actualizarUsuario.html",
+      controller: "AdminCtrl"
+    }).
 		when("/becasTEC",{
 			templateUrl: "rBecasTEC.html",
 			controller: "AdminCtrl"
