@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="52b9bc5ae604408cae4568c3e3a08899" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="sistema_tramites_bd_model.estudiante" Width="1.5" PointX="5.625" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="sistema_tramites_bd_model.rol" Width="1.5" PointX="3" PointY="5.875" />
+        <EntityTypeShape EntityType="sistema_tramites_bd_model.sistema_informacion" Width="1.5" PointX="0.75" PointY="6.125" />
+        <AssociationConnector Association="sistema_tramites_bd_model.rol_sistema_fkey" />
+        <EntityTypeShape EntityType="sistema_tramites_bd_model.usuario" Width="1.5" PointX="0.75" PointY="2.625" />
+        <AssociationConnector Association="sistema_tramites_bd_model.roles_por_usuario" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
